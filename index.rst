@@ -1,27 +1,48 @@
 Introduction
 ============
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Introduction
+   :name: master_intro
+
+   intro/why_cpp
+   intro/coding_style
+   intro/simple_cpp
+
 Software Requirements
 =====================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Software Requirements
+   :name: master_sr
 
-Lectures
-========
+   software/git
+   software/docker
+   software/jupyter
+   software/atom
+
+Lecture 1
+=========
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Lecture 1
+   :name: master_lec1
 
 Case Studies
 ============
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Case Studies
+   :name: master_cases
 
+   cases/doxygen
+   cases/inter_python
+   cases/dyload
+   cases/temp_meta
 
 
 .. only:: html
