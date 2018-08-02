@@ -22,9 +22,8 @@ Case Studies
    :maxdepth: 2
    :caption: Contents:
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
+.. only:: html
+
+  .. include:: indices_tables.txt
