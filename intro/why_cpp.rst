@@ -1,4 +1,5 @@
 .. include:: ../links.txt
+.. include:: ../roles.txt
 
 .. _intro_why_cpp:
 
@@ -33,9 +34,9 @@ Concepts that you learn from `C++` can be directly used in other programming
 languages such as `Java`, `Python`_, `MATLAB`_, `C`, `Fortran`, etc. Personally,
 I believe writing an algorithm in `C++` helps you fully understand the idea
 and, potentially, can also improve the algorithm design. Let's say, you probably
-has already leaned how to do matrix multiplications in your college linear algebra
+has already learned how to do matrix multiplications in your college linear algebra
 classes. Then, when your instructors asked you to implement this as homework
-assignment in `MATLAB`_, this is probably what you do
+assignment in `MATLAB`_, this is probably what you do was
 
 .. code-block:: matlab
 
@@ -54,9 +55,14 @@ or in `Python`_
 
 Well, I am kidding! This is cheating as homework assignments. You probably
 implemented the triple for-loops. If you did a timing analysis, you would probably
-see that the triple for-loops is more than 100 times slower.
-
-.. todo:: finish this
+see that the triple for-loop version is more than 100 times slower. Languages like
+`Python`_ or `MATLAB`_ hide details from users, for instance, many students
+don't understand how matrices are stored in `MATLAB`_ and `NumPY` and the
+difference between accessing from column ``j`` to column ``j+1`` in these two
+languages, i.e. speed is different when accessing :python:`A[i,j:j+2]` and
+:matlab:`A(i,j:j+1)`. On the other side, `C++` hides nothing from users.
 
 You Should **NOT** Consider Using `C++` If
 ------------------------------------------
+
+`Very well, so I should only code with C++!` Wait, wait...
