@@ -36,7 +36,7 @@ I believe writing an algorithm in `C++` helps you fully understand the idea
 and, potentially, can also improve the algorithm design. Let's say, you probably
 has already learned how to do matrix multiplications in your college linear algebra
 classes. Then, when your instructors asked you to implement this as homework
-assignment in `MATLAB`_, this is probably what you do was
+assignment in `MATLAB`_, what you did is probably something like the following
 
 .. code-block:: matlab
 
