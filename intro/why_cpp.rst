@@ -16,9 +16,9 @@ You Should Consider Using `C++` If
 
 The chances are that you may heard a lot of good things of `C++`, and finally
 you have decided to give it a shot. Great! There is not doubt with the power of
-`C++`. It is one of the most widely used programming languages, found in a large
-range of applications. Unsurprisingly, `scientific computing` communities use
-`C++` quite often in their projects. For instance, if you are interested in
+`C++`. It is one of the most widely used programming languages, found in a
+large range of applications. Unsurprisingly, `scientific computing` communities
+use `C++` quite often in their projects. For instance, if you are interested in
 solving `partial differential equations` (PDEs), then open-sourced frameworks
 such as `OpenFOAM`_ and `SU2`_ might attract people who work in `computational
 fluid dynamics` (CFD), and `FEniCS`_ and `deal.II`_ for researchers who are
@@ -26,17 +26,19 @@ interested in `finite element methods` (FEM) for solving, say, structural
 problems. Of course, the `computational geometry algorithms library` (`CGAL`_)
 is very popular for computer scientists who develop geometry-based algorithms.
 What about for students who work in much lower level research areas, such as
-developing numerical algorithms. No problem, `Eigen`_ has been around for decades
-that supports efficient representations of fundamental numerical computation
-objects, like vectors, matrices, and tensors. OK, I think I can stop here!
+developing numerical algorithms. No problem, `Eigen`_ has been around for
+decades that supports efficient representations of fundamental numerical
+computation objects, like vectors, matrices, and tensors. OK, I think I can
+stop here!
 
 Concepts that you learn from `C++` can be directly used in other programming
-languages such as `Java`, `Python`_, `MATLAB`_, `C`, `Fortran`, etc. Personally,
-I believe writing an algorithm in `C++` helps you fully understand the idea
-and, potentially, can also improve the algorithm design. Let's say, you probably
-has already learned how to do matrix multiplications in your college linear algebra
-classes. Then, when your instructors asked you to implement this as homework
-assignment in `MATLAB`_, what you did is probably something like the following
+languages such as `Java`, `Python`_, `MATLAB`_, `C`, `Fortran`, etc.
+Personally, I believe writing an algorithm in `C++` helps you fully understand
+the idea and, potentially, can also improve the algorithm design. Let's say,
+you probably has already learned how to do matrix multiplications in your
+college linear algebra classes. Then, when your instructors asked you to
+implement this as homework assignment in `MATLAB`_, what you did is probably
+something like the following
 
 .. code-block:: matlab
 
