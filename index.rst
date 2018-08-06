@@ -7,7 +7,7 @@ Introduction
    :name: master_intro
 
    intro/why_cpp
-   intro/coding_style
+   intro/lec0
    intro/simple_cpp
 
 Software Requirements
@@ -21,7 +21,7 @@ Software Requirements
    software/git
    software/docker
    software/jupyter
-   software/atom
+   software/vscode
 
 Lecture 1
 =========

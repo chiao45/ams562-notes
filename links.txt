@@ -1,5 +1,6 @@
 .. common hyperlinks
 
+.. _C++: https://isocpp.org/
 .. _Python: https://www.python.org/
 .. _MATLAB: https://www.mathworks.com/products/matlab.html
 .. _Octave: https://www.gnu.org/software/octave/
@@ -16,3 +17,7 @@
 .. _deal.II: https://www.dealii.org/
 .. _Eigen: http://eigen.tuxfamily.org/index.php?title=Main_Page
 .. _CGAL: https://www.cgal.org/
+.. _Department of Allied Mathematics & Statistics: https://www.stonybrook.edu/commcms/ams/
+.. _Institute for Advanced Computational Science: https://www.iacs.stonybrook.edu/
+.. _Google C++ Style: https://google.github.io/styleguide/cppguide.html
+.. _Sphinx: http://www.sphinx-doc.org/en/master/
