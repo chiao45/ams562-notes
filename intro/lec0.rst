@@ -34,7 +34,7 @@ In `MATLAB`_, people use percentage sign, i.e.
     comments
     %}
 
-In `C++`_, we use double forward flashes :cpp:`//` to comment, i.e.
+In `C++`_, we use double forward slashes :cpp:`//` to comment, i.e.
 
 .. code-block:: cpp
 
@@ -52,3 +52,19 @@ Of course, the old C style comment is also valid, i.e.
     in this
     block
     */
+
+.. tip::
+    For `C++`_, it's better to stick with :cpp:`//` even though you have
+    multiple lines of comments.
+
+**Comments make others life better.**
+
+Imagine you join a research group and continue on some former member's work.
+The only thing you get is his/her codes with no comments. Then, let's just
+hope the codes are very robust and have no errors (99.99% chance no!).
+Otherwise, it will waste you lots of time to figure out what he/she has done.
+
+Also notice that, eventually, you will become someone's "former" member, so
+do not let your academic litter brothers/sisters run into the same situation.
+
+**"I'm so glad that I commented on this file nicely!"**

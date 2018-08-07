@@ -135,11 +135,16 @@ several nice directives to do highlighting.
 
 **Notes**, used for emphasis on technical points
 
-.. note:: Comments are important!
+.. note::
+  My fundamental assumption is that you all are new to `C++`_ programming but
+  with decent experiences in at least one of `Python`_, `MATLAB`_/`Octave`_, or
+  Java.
 
 **Warnings**, danger areas!
 
-.. warning:: blah blah blah...
+.. warning::
+  Generally speaking, `C++`_ is not for someone who has no programming
+  background.
 
 Acknowledgments
 ---------------
