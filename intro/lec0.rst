@@ -126,4 +126,76 @@ but for this class, I will briefly share some of my **personal** styles.
     The following information is based on personal experience thus it can be
     subjective.
 
-Rule I:
+Rule I: Make the variable names meaningful.
++++++++++++++++++++++++++++++++++++++++++++
+
+Historically, people like to use ``foo``, ``bar``, or ``spam`` to demonstrate
+ideas. Usually, they don't assume or know the backgrounds of the readers, so
+they choose some `placeholder` names that can be replaced in real codes. Hence,
+avoid using these names in your projects; no one wants to see placeholders in
+the final products.
+
+Another commonly used word is ``temp`` or ``tmp`` that stands for temporary
+variables. Personally, I use this word only for some variables that have short
+lifetime.
+
+A rule of thumb is to ask your workmates and check whether they can understand
+the meaning of your variables.
+
+Rule II: Make the variable names compact.
++++++++++++++++++++++++++++++++++++++++++
+
+Making things meaningful doesn't mean you have to be verbose. Also, don't
+forget we have just learned how and why to make comments! Commonly, people
+use abbreviations for their variable names, and this is what we shall follow.
+
+.. tip::
+
+    Choose an abbreviation that will appear in your project documentation or
+    your papers/reports.
+
+Rule III: Most functions should start with verbs.
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+This idea is commonly agreed by most of people, especially in scientific
+programming.
+
+.. tip::
+
+    Some commonly used verbs: ``set``, ``get``, ``fetch``, ``extract``, ``is``,
+    ``assign``, ``compute``, ``determine``, ``swap``, ``move``, ``init``,
+    ``destroy``, ``create``, ``remove``, ``reset``, ``reserve``, ``put``,
+    ``resize``, etc.
+
+.. note::
+
+    `C++`_ encourages people to hide `member variables` (future) and access
+    them through `member functions` (future), e.g. ``size``, ``length``,
+    ``data``, ``capacity``, etc.
+
+Format Your Files
+-----------------
+
+Besides comment your codes, another important aspect is to have a nice layout
+of your codes, so that it makes others who read your work enjoyable.
+
+.. code-block:: cpp
+
+    for(int a=0;a <10;  ++a) {
+            foo[a] =1.0; bar[a]=2.0;
+        spam[a]  =  3.0;}
+
+vs.
+
+.. code-block:: cpp
+
+    for (int a = 0; a < 10; ++a) {
+        foo[a]  = 1.0;
+        bar[a]  = 2.0;
+        spam[a] = 3.0;
+    }
+
+Well, I vote for the second one!
+
+However, manually doing this is a pain. We shall leverage the automatic tool
+such as `clang-format`_. It
