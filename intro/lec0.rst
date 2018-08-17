@@ -198,4 +198,5 @@ vs.
 Well, I vote for the second one!
 
 However, manually doing this is a pain. We shall leverage the automatic tool
-such as `clang-format`_. It
+such as `clang-format`_, which can be used through our editor (`vscode`_)
+through the `Docker`_ image for this course.

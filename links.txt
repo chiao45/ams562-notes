@@ -22,3 +22,5 @@
 .. _Google C++ Style: https://google.github.io/styleguide/cppguide.html
 .. _Sphinx: http://www.sphinx-doc.org/en/master/
 .. _clang-format: https://clang.llvm.org/docs/ClangFormat.html
+.. _vscode: https://code.visualstudio.com/
+.. _Docker: https://www.docker.com/
