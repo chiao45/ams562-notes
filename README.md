@@ -12,4 +12,4 @@ For more detailed information regarding how to use the Docker image, please chec
 
 ## License
 
-All examples are materials in this repository are free to use and distributed under MPI license.
+All examples are materials in this repository are free to use and distributed under MIT license.
