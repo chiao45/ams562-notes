@@ -23,13 +23,25 @@ Software Requirements
    software/jupyter
    software/vscode
 
-Lecture 1
-=========
+Lecture 1: Types & I/O
+======================
 
 .. toctree::
    :maxdepth: 2
    :caption: Lecture 1
    :name: master_lec1
+
+   lectures/1/note
+
+Lecture 2: Pointers & References
+================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Lecture 2
+   :name: master_lec2
+
+   lectures/2/note
 
 Case Studies
 ============
