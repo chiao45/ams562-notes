@@ -19,6 +19,16 @@
 
 # -- Project information -----------------------------------------------------
 
+import sys
+import os
+
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from nblinks import _extlinks
+
+extlinks = _extlinks
+
 project = 'AMS 562 Lecture Notes'
 copyright = '2018, Qiao Chen'
 author = 'Qiao Chen'
@@ -44,8 +54,9 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.githubpages',
     'sphinx.ext.imgmath',
+    'sphinx.ext.extlinks',
     'IPython.sphinxext.ipython_console_highlighting',
-    'IPython.sphinxext.ipython_directive'
+    'IPython.sphinxext.ipython_directive',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
