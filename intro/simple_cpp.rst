@@ -71,6 +71,8 @@ You should see ``0`` on the screen.
 Unfortunately, you cannot write one line code for "Hello World!" in `C++`_. In
 `Python`_, you can write a ``hello_world.py`` script with:
 
+.. _intro_py_hw:
+
 .. code-block:: python
 
     print('Hello World!')
