@@ -179,8 +179,10 @@ numbers?
 .. [#] please read `Wikipedia page <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>`_ for more
 .. [#] please read `Wikipedia page <https://en.wikipedia.org/wiki/Significant_figures>`_ for more
 
-Commonly Used Types
--------------------
+.. _lec1_str:
+
+The :cpp:expr:`string` Type
+---------------------------
 
 ``string`` is also an important type in all programming language. With standard
 `C++`_, ``string`` is not a built-in type, it's defined in the standard library
@@ -198,7 +200,7 @@ Commonly Used Types
 .. note::
 
     If you are familiar with C, there is so-called C-string type, which is
-    an array of characters, i.e. :cpp:expr:`char`.
+    an :ref:`array<lec1_array>` of characters, i.e. :cpp:expr:`char`.
 
 Literals
 --------
@@ -211,6 +213,8 @@ languages), there are five types:
 3. character literals,
 4. boolean literals, and
 5. string literals.
+
+.. _lec1_literal_type:
 
 Each literal has its own **form** and **type**. Notice that literals are
 commonly used in :ref:`initializing<lec1_define_init>` variables.
@@ -269,10 +273,281 @@ You can also use scientific notations:
     1.e10f      // float, 1x10^10
     5.32001e3f  // float, 5320.01
 
+Character Literals
+++++++++++++++++++
+
+For character literals, use the single quotations:
+
+.. code-block:: cpp
+
+    'a'     // character a
+    'A'     // character A
+    '7'     // character 7
+
+Boolean Literals
+++++++++++++++++
+
+`C++`_ uses :cpp:expr:`true` and :cpp:expr:`false` for Logical literals.
+
+String Literals
++++++++++++++++
+
+For strings, `C++`_ uses double quotations, for instance:
+
+.. code-block:: cpp
+
+    "Hello World!"      // string value of Hello World!
+    "AMS 562"           // string of AMS 562
+
+A string is a sequence of characters.
+
+.. warning::
+
+    In `Python`_, single quotations can be used for strings, i.e. see the
+    :ref:`Hello World<intro_py_hw>` example. However, this rule cannot be
+    applied to `C++`_, i.e. :code:`'abc'` is referred as multicharacter
+    literal that has type of :cpp:expr:`int` instead of :cpp:expr:`char` and
+    the value is ID.
+
+Escape Sequences
+++++++++++++++++
+
+**Questions:** How to use literals to represent string :code:`"A"` and
+character :code:`'` with the quotation marks?
+
+Such special characters are so-called *escape sequences* and start with
+backslash. Commonly used ones are:
+
+.. table:: Commonly Used Escape Sequences (ES) [#]_
+    :name: es_table
+    :align: center
+
+    =========== ================
+    ES          Description
+    =========== ================
+    :code:`\'`  single quote
+    :code:`\"`  double quote
+    :code:`\\`  backslash
+    :code:`\n`  **new line**
+    :code:`\t`  horizontal tab
+    :code:`\v`  vertical tab
+    =========== ================
+
+Now let's consider the following string literals with escape sequences:
+
+.. code-block:: cpp
+
+    "Hello\nWorld!"         // Hello<new line>World!
+    "Hello\tWorld!"         // Hello<tab>World!
+    "\"Hello World\""       // "Hello World!"
+
+.. [#] Check `cppreference page <https://en.cppreference.com/w/cpp/language/escape>`_ for more.
+
 .. _lec1_define_init:
 
 Define & Initialize Variables
 -----------------------------
+
+At the beginning of this lecture, we have showed an
+:ref:`Python program<lec1_dy_eg>` to demonstrate one of the major differences
+between `C++`_ and dynamic language. In `C++`_, you must to explicitly
+construct variables with their types given. The format is :code:`[type] var;`,
+where :code:`[type]` is legal types, e.g. :cpp:expr:`int`, :cpp:expr:`double`,
+:cpp:expr:`std::string`, etc.
+
+Define Variables
+++++++++++++++++
+
+Here are some examples of defining variables:
+
+.. code-block:: cpp
+
+    int a;              // define an integer with var name a
+    double tol;         // define a double with var name tol
+    std::string addr;   // define a string with var name addr, req <string>
+
+.. warning::
+
+    Once a variable name is been occupied, you cannot reuse it for anything
+    else (within the same :ref:`scope<lec1_scope>`).
+
+Initialize Variable Values
+++++++++++++++++++++++++++
+
+It's good practice to initialize a variable while defining it.
+
+.. code-block:: cpp
+
+    unsigned long size = 100000000000ul;    // a huge size
+    float error = 0.0f;                     // initialize to 0
+    std::string filename = "input.txt";     // a string of filename
+
+Checkout :nblec_1:`types` and run it.
+
+.. note::
+
+    One should not expect any default behaviors of uninitialized variables,
+    e.g. when you write :code:`int a;`, :cpp:expr:`a` might be zero but you
+    should not assume this!
+
+Type Conversions
+++++++++++++++++
+
+Let's take a look at the following seemingly trivial code:
+
+.. code-block:: cpp
+
+    double two = 2;
+
+It defines a double-precision floating point number :cpp:expr:`two` and
+initializes it to 2. However, recall that each literal has its own
+:ref:`type<lec1_literal_type>`, which means the above code assigns a double
+precision number with an integer. This is called type conversion in `C++`_.
+
+Type Conversions Between Integers
++++++++++++++++++++++++++++++++++
+
+In general, type conversions between integers are simply copying the values.
+However, keep in mind that all integer types have their ranges. Converting
+from larger size types to smaller ones may potentially cause troubles, i.e.
+integer *overflow* and *underflow*.
+
+.. code-block:: cpp
+    :name: conv_int
+
+    unsigned int wha = -1; // What the value of wha??
+
+Typically, the issues come from converting between signed and unsigned
+integers. Let's take a look at the :ref:`code<conv_int>` above. It tries to
+convert :cpp:expr:`int` value -1 to :cpp:expr:`unsigned int` variable
+:cpp:expr:`wha`.
+
+.. note::
+
+    You can consider each integer type form a cyclic list that :code:`MAX+1`
+    is its :code:`MIN` and :code:`MIN-1` is the :code:`MAX`.
+
+As a result, the actual value of :cpp:expr:`wha` is 4,294,967,295. Checkout and
+run :nblec_1:`conv`.
+
+.. warning::
+
+    Unless you 100% know what you are doing, converting between signed and
+    unsigned integers should be avoid!
+
+Converting Floating Point Numbers to Integers
++++++++++++++++++++++++++++++++++++++++++++++
+
+The rule for converting floating numbers to integers is to truncate them into
+whole numbers.
+
+.. code-block:: cpp
+
+    int a = 12.03;    // a is 12
+    int b = -1.234e2; // b is -123
+
+The :code:`const` Specifier
+---------------------------
+
+:code:`const` is a keyword in `C++`_ that indicates an variable is immutable.
+Once a variable is defined as constant, you cannot modify its value,
+**so initialization is must for defining constant variables!**
+
+.. code-block:: cpp
+
+    const int a = 4;    // define a constant integer of value 4
+    // a = 2;           // ERROR! you cannot modify constant vars
+    // const double b;  // ERROR! const var must be initialized
+
+.. tip:: Use :code:`const` whenever possible!
+
+.. _lec1_array:
+
+Array
+-----
+
+Array is one of the most basic data structures in programming. As a matter of
+facet, it is also the most commonly used data structure in scientific
+computing. An array is a sequence of objects that have the same size and type.
+In `C++`_, an array can be constructed with square bracket :code:`[N]`, where
+:cpp:expr:`N` is the size of array.
+
+.. code-block:: cpp
+
+    double arr[3];   // create an array of 3 doubles
+    int pos[5];      // an array of 5 integers
+
+To initialize an array, the curly brackets :code:`{}` are needed, e.g.
+
+.. code-block:: cpp
+    :linenos:
+
+    double tols[2] = {1e-4, 2e-5};  // array of two with values 1e-4 and 2e-5
+    int mappings[] = {2, 0, 1};     // array of three integers, size 3
+    // short a[];                   // ERROR! size must be provided
+    // const int b[2];              // ERROR! b must be initialized
+    int z[3] = {1};                 // partial initialization is ok
+    // int m[2] = {1,2,3};          // ERROR! exceeded the size
+
+It is allowed to implicitly provide the size if you initialize the array, as
+shown in line 2. Also, partially initialize an array is allowed, but the
+right-hand side must be no larger than the actual array size. Checkout and
+run :nblec_1:`array`.
+
+Accessing Array Elements
+++++++++++++++++++++++++
+
+To access an specific element of an array, we need to use operator
+:code:`[index]`.
+
+.. warning::
+
+    Un like Fortran and `MATLAB`_, `C++`_ is zero-based indexing, i.e. the
+    first element index starts from 0 instead of 1.
+
+.. code-block:: cpp
+
+    double stdv[3];     // array of 3 doubles
+    stdv[0] = 1.0;      // first element 1
+    stdv[1] = 2.0;      // second element 2
+    stdv[2] = 3.0;      // last element 3
+    // stdv[3];         // out of bound!
+
+Multidimensional Array
+++++++++++++++++++++++
+
+Multidimensional arrays are useful, for instance, a matrix can be represented
+as a 2D array, where the first dimension is the row size and column size for
+the second dimension. The concept of multidimensional array can be interpreted
+as *an array of arrays*.
+
+.. code-block:: cpp
+    :linenos:
+
+    double mat[2][2];       // array of two arrays of size 2
+    mat[0][0] = 1;
+    mat[0][1] = 2;
+    mat[1][0] = 3;
+    mat[1][1] = 4;
+    /*
+        a matrix of 2x2
+
+        | 1  2 |
+        | 3  4 |
+    */
+
+What is the type of :cpp:expr:`mat`? It is an array but its elements also have
+type of array, i.e. :code:`double[2]`. In line 2, :code:`mat[0][0]` first
+accesses to the first element of :cpp:expr:`mat`, which is an array, say
+:cpp:expr:`mat0`, the accesses the first element of :cpp:expr:`mat0`, i.e.
+:code:`mat0[0]`.
+
+The :code:`char[]`
+++++++++++++++++++
+
+As we already learned in section :ref:`string<lec1_str>`, a string is just
+a sequence of :cpp:expr:`char`, i.e. :code:`char[]`. Therefore, :code:`char[]`
+is also called *C string*, or the native string type of `C++`_.
 
 .. _lec1_scope:
 
