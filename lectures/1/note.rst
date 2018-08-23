@@ -3,10 +3,17 @@
 
 .. _lec1:
 
+.. contents:: Table of Contents
+   :local:
+   :depth: 1
+   :backlinks: top
+
+.. _lec1_types:
+
 `C++`_ is all about TYPES!
 ==========================
 
-.. contents:: Table of Contents
+.. contents::
    :local:
    :backlinks: top
 
@@ -289,6 +296,8 @@ Boolean Literals
 
 `C++`_ uses :cpp:expr:`true` and :cpp:expr:`false` for Logical literals.
 
+.. _lec1_str_lit:
+
 String Literals
 +++++++++++++++
 
@@ -308,6 +317,8 @@ A string is a sequence of characters.
     applied to `C++`_, i.e. :code:`'abc'` is referred as multicharacter
     literal that has type of :cpp:expr:`int` instead of :cpp:expr:`char` and
     the value is ID.
+
+.. _lec1_es:
 
 Escape Sequences
 ++++++++++++++++
@@ -542,14 +553,295 @@ accesses to the first element of :cpp:expr:`mat`, which is an array, say
 :cpp:expr:`mat0`, the accesses the first element of :cpp:expr:`mat0`, i.e.
 :code:`mat0[0]`.
 
+.. _lec1_array_cstr:
+
 The :code:`char[]`
 ++++++++++++++++++
 
 As we already learned in section :ref:`string<lec1_str>`, a string is just
 a sequence of :cpp:expr:`char`, i.e. :code:`char[]`. Therefore, :code:`char[]`
-is also called *C string*, or the native string type of `C++`_.
+is also called *C string*, or the native string type of `C++`_. You can
+initialize a C string either using the array fashion or the
+:ref:`string literal<lec1_str_lit>` way.
+
+.. code-block:: cpp
+
+    // The follow two are identical
+    char str1[] = "AMS 562";
+    char str2[] = {'A', 'M', 'S', ' ', '5', '6', '2'};
 
 .. _lec1_scope:
 
 Scope & Lifetime of Variables
 -----------------------------
+
+We have already learned that reusing a variable name is not allowed in `C++`_,
+but this rule applies to the variables with the same scope. Scope operators
+must appear as a pair of scope opener and scope closer, where are :code:`{`
+and :code:`}`, respectively.
+
+.. code-block:: cpp
+
+    int a = 1;   // define integer a
+    // double a; // ERROR! reusing a within the same scope
+
+    // start a new scope
+    {
+        double a; // OK!
+    }
+    // scope ends
+
+.. note::
+
+    The :ref:`main<intro_simple_cpp_main>` function or any other
+    functions all have local scope.
+
+The lifetime of a variable is associated with its scope. When it reaches the
+end of scope, it will become inaccessible and be popped out from the program
+stack.
+
+.. code-block:: cpp
+    :linenos:
+
+    // start with a child scope
+    {
+        int a;
+    } // a becomes invalid!
+
+    // a = 1; // ERROR! a does not exist!!
+
+    int b = 1; // define b, and its life begins
+
+    {
+        double b = 2.0; // define local b
+        b = 3;
+        // which b?
+    }
+
+    b = 2;
+    // which b?
+
+.. note:: Child scope overwrites its parent scopes.
+
+.. _lec1_io:
+
+Standard Input & Output
+=======================
+
+.. contents::
+   :local:
+   :backlinks: top
+
+.. _lec1_io_stdout:
+
+The :cpp:expr:`std::cout` Stream
+--------------------------------
+
+By default, most program environments' standard output is screen. In `C++`_,
+the global object :cpp:expr:`std::cout` is defined and guaranteed to be
+initialized at the beginning of any programs. The object itself is defined in
+the standard I/O library :code:`<iostream>`, which must be included in order
+to perform I/O tasks.
+
+**std::cout** stands for standard C output, which is a :cpp:expr:`FILE*`
+object in C (:python:`sys.stdout` in `Python`_). `C++`_ uses the abstraction
+called *streams* to perform I/O operations.
+
+Output operator :code:`<<` (bitwise left shift, or double less-than signs) is
+used to indicate "write to a streamer".
+
+.. code-block:: cpp
+    :linenos:
+
+    #include <iostream>  // bring in std::cout
+
+    std::cout << "Hello World!" << std::endl;
+    std::cout << "1+1=" << 2 << std::endl;
+    std::cout << "size of double is: " << sizeof(double) << std::endl;
+
+Notice that :cpp:expr:`std::endl` is *manipulator* to produce a newline.
+Line 4 and 5 show that you can recursively write to the :cpp:expr:`cout`
+streamer and the output contents can be different types, e.g. in line 4,
+:code:`"1+1="` is string but :code:`2` is integer.
+
+.. note::
+
+    In stead of using manipulator :cpp:expr:`std::endl`, you can also use the
+    newline :ref:`escape sequence<lec1_es>`---:code:`\n`.Therefoer, the outputs
+    are identical between :code:`std::cout << "Hello World!" << std::endl;` and
+    :code:`std::cout << "Hello World!\n";`.
+
+Checkout and run :nblec_1:`cout`.
+
+The :cpp:expr:`std::cin` Stream
+-------------------------------
+
+The default standard input for most program environments is through keyboard.
+In C, the :cpp:expr:`FILE*` object is :cpp:expr:`stdin` (:python:`sys.stdin`
+in `Python`_). This input streamer is able to read the user inputs from
+keyboard. :cpp:expr:`std::cin` stands for standard C input.
+
+Similar to output operator, the input operator is bitwise shift right (or
+double greater-than signs) :code:`>>`. The basical syntax is
+:code:`std::cin>>var;` and the user inputs will be stored in :code:`var`.
+
+.. code-block:: cpp
+
+    #include <iostream> // cout and cin
+
+    // best practice, always indicate the user what to enter
+    std::cout << "Please enter your first name:\n";
+    std::string name;
+    // the program will hang here til recieve the user input
+    std::cin >> name;
+    std::cout << "Hello! " << name << std::endl;
+
+:cpp:expr:`std::cin` searches the user keyboard input and treated them as a
+sequence of white space separated arguments. Therefore, if you enter your
+full name, e.g. "Qiao Chen", only the first value will be printed because
+the program only asks for one input arguments.
+
+It's also possible to handle multiple input arguments:
+
+.. code-block:: cpp
+
+    #include <iostream> // cout and cin
+
+    // best practice, always indicate the user what to enter
+    std::cout << "Please enter your first and last names:\n";
+    std::string fname, lname;
+    // the program will hang here til recieve the user input
+    std::cin >> fname >> lname;
+    std::cout << "Hello! " << fname << ' ' << lname << std::endl;
+
+.. only:: html
+
+    Compile and run :download:`cin_demo.cpp<../../programs/1/cin_demo.cpp>`.
+
+.. only:: latex
+
+    Compile and run :cpplec_1:`cin_demo`.
+
+The :cpp:expr:`std::cerr` Stream
+--------------------------------
+
+:cpp:expr:`std::cerr` stands for standard C error output. Its associated C
+:cpp:expr:`FILE*` object is :cpp:expr:`stderr` (:python:`sys.stderr` in
+`Python`_). It, like :ref:`cout<lec1_io_stdout>`, is an output streamer. It
+also writes outputs on the screen.
+
+.. code-block:: cpp
+
+    #include <iostream>
+
+    std::cerr << "This is an error message!\n";
+    std::err << "WARNING! Converting from signed to unsigned is dangerous!\n";
+
+:cpp:expr:`std::cout` vs. :cpp:expr:`std::cerr`
+-----------------------------------------------
+
+Conceptually, we understand that :cpp:expr:`std::cout` should be used for
+writing normal messages, e.g. logging information; :cpp:expr:`std::cerr`, on
+the other hand, should be used for indicating error messages. However,
+in terms of programming, what is the difference between these two streamers,
+since they seemingly both just output messages on the screen.
+
+Before we dig into this question, we need to understand the concept
+*file descriptor* (FD). FD is a handle (usually non-negative integer) that
+uniquely indicates an open **file** object. On Linux, a file object can also
+be other input/output resources such as pipe and network sockets. Recall that
+both *cout* and *cerr* stand for *standard outputs*, the latter is specifically
+for error output. All these two are the default output FDs, to which a program
+can write outputs. On Linus, there should be three standard FDs:
+
+.. table:: Standard File Descriptors
+    :align: center
+
+    ====================== =============== ===========
+    Streams                  File Types    FD handles
+    ====================== =============== ===========
+    :cpp:expr:`std::cin`   standard input   0
+    :cpp:expr:`std::cout`  standard output  1
+    :cpp:expr:`std::cerr`  standard error   2
+    ====================== =============== ===========
+
+.. _lec1_io_cmp_eg:
+
+Consider the following program:
+
+.. literalinclude:: ../../programs/1/cout_vs_cerr.cpp
+    :language: cpp
+    :lines: 11-
+
+.. only:: html
+
+    and you can download it :download:`cout_vs_cerr.cpp<../../programs/1/cout_vs_cerr.cpp>`.
+
+.. only:: latex
+
+    and you can download it :cpplec_1:`cout_vs_cerr`.
+
+Inside a terminal, compile the program:
+
+.. code-block:: bash
+
+    $ g++ cout_vs_cerr.cpp
+
+Let's first run the program normally
+
+.. code-block:: bash
+
+    $ ./a.out
+    This is from cout
+    This is from cerr
+
+Both of "This is from cout" and "This is from cerr" are printed on the screen.
+Bash allows you to *redirect* standard outputs by using :code:`>` when you run
+any programs. Now rerun the program:
+
+.. code-block:: bash
+
+    $ ./a.out >cout.txt
+    This is from cerr
+
+Only "This is from cerr" is shown on the screen, the output that was written to
+:cpp:expr:`cout` had been redirected to the file "cout.txt". Invoke the
+built-in commands ``ls`` and ``cat`` to list *cwd* and print out the content
+of a file.
+
+.. code-block:: bash
+
+    $ ls
+    a.out  cout.txt  cout_vs_cerr.cpp
+    $ cat cout.txt
+    This is from cout
+
+In addition, you redirect a specific file descriptor by adding the FD handle
+in front of :code:`>`. Finally rerun the program:
+
+.. code-block:: bash
+
+    $ ./a.out 1>cout.txt 2>cerr.txt
+    $ ls
+    a.out  cerr.txt  cout.txt  cout_vs_cerr.cpp
+    $ cat cout.txt cerr.txt
+    This is from cout
+    This is from cerr
+
+This time, both *cout* and *cerr* wrote to files "cout.txt" and "cerr.txt",
+respectively. In practice, this allows you easily to group the program outputs
+into normal progress logging information and error/warning information. For
+instance:
+
+.. code-block:: bash
+
+    $ ./my_prog 1>prog.log 2>error.log
+
+If something goes wrong, the user can always trace back in "error.log" given
+the assumption that your program write error/warning messages to
+:cpp:expr:`std::cerr`.
+
+.. tip::
+
+    :bash:`&>file.txt` can redirect both *stdout* and *stderr* to "file.txt".
+    For instance, :bash:`./a.out &>output.log`.
