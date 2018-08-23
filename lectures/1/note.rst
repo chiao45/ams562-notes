@@ -314,7 +314,7 @@ A string is a sequence of characters.
 
     In `Python`_, single quotations can be used for strings, i.e. see the
     :ref:`Hello World<intro_py_hw>` example. However, this rule cannot be
-    applied to `C++`_, i.e. :code:`'abc'` is referred as multicharacter
+    applied to `C++`_, i.e. :code:`'abc'` is referred as multi-character
     literal that has type of :cpp:expr:`int` instead of :cpp:expr:`char` and
     the value is ID.
 
@@ -553,7 +553,8 @@ accesses to the first element of :cpp:expr:`mat`, which is an array, say
 :cpp:expr:`mat0`, the accesses the first element of :cpp:expr:`mat0`, i.e.
 :code:`mat0[0]`.
 
-.. _lec1_array_cstr:
+.. _lec1_array_
+:
 
 The :code:`char[]`
 ++++++++++++++++++
@@ -667,7 +668,7 @@ streamer and the output contents can be different types, e.g. in line 4,
 .. note::
 
     In stead of using manipulator :cpp:expr:`std::endl`, you can also use the
-    newline :ref:`escape sequence<lec1_es>`---:code:`\n`.Therefoer, the outputs
+    newline :ref:`escape sequence<lec1_es>`---:code:`\n`.Therefore, the outputs
     are identical between :code:`std::cout << "Hello World!" << std::endl;` and
     :code:`std::cout << "Hello World!\n";`.
 
@@ -676,13 +677,16 @@ Checkout and run :nblec_1:`cout`.
 The :cpp:expr:`std::cin` Stream
 -------------------------------
 
+Use Input Operator :code:`>>`
++++++++++++++++++++++++++++++
+
 The default standard input for most program environments is through keyboard.
 In C, the :cpp:expr:`FILE*` object is :cpp:expr:`stdin` (:python:`sys.stdin`
 in `Python`_). This input streamer is able to read the user inputs from
 keyboard. :cpp:expr:`std::cin` stands for standard C input.
 
 Similar to output operator, the input operator is bitwise shift right (or
-double greater-than signs) :code:`>>`. The basical syntax is
+double greater-than signs) :code:`>>`. The basic syntax is
 :code:`std::cin>>var;` and the user inputs will be stored in :code:`var`.
 
 .. code-block:: cpp
@@ -690,16 +694,17 @@ double greater-than signs) :code:`>>`. The basical syntax is
     #include <iostream> // cout and cin
 
     // best practice, always indicate the user what to enter
-    std::cout << "Please enter your first name:\n";
+    std::cout << "Please enter your first name: ";
     std::string name;
-    // the program will hang here til recieve the user input
+    // the program will hang here til receive the user input
     std::cin >> name;
     std::cout << "Hello! " << name << std::endl;
 
-:cpp:expr:`std::cin` searches the user keyboard input and treated them as a
+:cpp:expr:`std::cin` read the user inputs into its buffer, and the input
+operator :code:`>>` searches the user keyboard inputs and treated them as a
 sequence of white space separated arguments. Therefore, if you enter your
 full name, e.g. "Qiao Chen", only the first value will be printed because
-the program only asks for one input arguments.
+the program only asks for one input arguments, i.e. :cpp:expr:`name`.
 
 It's also possible to handle multiple input arguments:
 
@@ -708,9 +713,9 @@ It's also possible to handle multiple input arguments:
     #include <iostream> // cout and cin
 
     // best practice, always indicate the user what to enter
-    std::cout << "Please enter your first and last names:\n";
+    std::cout << "Please enter your first and last names: ";
     std::string fname, lname;
-    // the program will hang here til recieve the user input
+    // the program will hang here til receive the user input
     std::cin >> fname >> lname;
     std::cout << "Hello! " << fname << ' ' << lname << std::endl;
 
@@ -721,6 +726,56 @@ It's also possible to handle multiple input arguments:
 .. only:: latex
 
     Compile and run :cpplec_1:`cin_demo`.
+
+Read An Entire Line
++++++++++++++++++++
+
+It's also convenient to read an entire line at once. To do this, you need to
+use the :cpp:expr:`std::getline` function. Like input operator :code:`>>`,
+*getline* treats the user inputs as a sequence of :code:`\n` separated
+arguments. The syntax is: :code:`std::getline([input streamer], string)`.
+
+.. code-block:: cpp
+
+    #include <iostream>
+
+    std::string buffer;         // create buffer
+    std::cout << "Please enter a sentence...\n";
+    std::getline(std::cin, buffer);
+    std::cout << "You just entered: " << buffer << '\n';
+
+.. warning::
+
+    Special care must be taken into consideration if you want to mix the use
+    of input operator :code:`>>` and :cpp:expr:`std::getline`. When the user
+    types "Hello" and press ``ENTER``, the actual input value is "Hello\\n".
+
+.. code-block:: cpp
+
+    std::string word, sent;
+    std::cout << "Enter a word:";
+    std::cin >> word;       // read in a word from cin
+    std::cout << "The word you just entered is:" << word << std::endl;
+    std::cout << "Enter a sentence:\n";
+    std::getline(std::cin, sent);
+    std::cout << "The sentence you entered is:\n" << sent << std::endl;
+
+The above code will not work as what you expect, because after reading a word,
+there is still a **newline**, :code:`\n`, character left, and this confuses
+the following *getline* operation. In order to skip the character :code:`\n`,
+you need to call :cpp:expr:`std::cin.ignore();`. The correct program is:
+
+.. code-block:: cpp
+    :emphasize-lines: 5
+
+    std::string word, sent;
+    std::cout << "Enter a word:";
+    std::cin >> word;       // read in a word from cin
+    std::cout << "The word you just entered is:" << word << std::endl;
+    std::cin.ignore();      // ignore '\n'
+    std::cout << "Enter a sentence:\n";
+    std::getline(std::cin, sent);
+    std::cout << "The sentence you entered is:\n" << sent << std::endl;
 
 The :cpp:expr:`std::cerr` Stream
 --------------------------------
