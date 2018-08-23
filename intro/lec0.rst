@@ -3,7 +3,7 @@
 
 .. _intro_lec0:
 
-Lecture ZERO
+Lecture Zero
 ============
 
 .. contents:: Table of Contents
@@ -34,7 +34,7 @@ In `MATLAB`_, people use percentage sign, i.e.
     comments
     %}
 
-In `C++`_, we use double forward slashes :cpp:`//` to comment, i.e.
+In `C++`_, we use double forward slashes :code:`//` to comment, i.e.
 
 .. code-block:: cpp
 
@@ -54,7 +54,7 @@ Of course, the old C style comment is also valid, i.e.
     */
 
 .. tip::
-    For `C++`_, it's better to stick with :cpp:`//` even though you have
+    For `C++`_, it's better to stick with :code:`//` even though you have
     multiple lines of comments.
 
 Comments make others life better.

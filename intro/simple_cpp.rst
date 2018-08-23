@@ -10,6 +10,8 @@ Simple `C++`_
    :local:
    :backlinks: top
 
+.. _intro_simple_cpp_main:
+
 The ``main`` functions
 ----------------------
 
@@ -19,8 +21,8 @@ status of the program.
 
 .. note:: 0 is used for indicating exiting successfully.
 
-Here is the simplest `C++`_ program, :cpp:`int main() { return 0; }`, which
-does nothing but just returns ``EXIT_SUCCESS`` to your system.
+Here is the simplest `C++`_ program, :code:`int main() { return 0; }`,
+which does nothing but just returns ``EXIT_SUCCESS`` to your system.
 
 Compile the one-line program
 ----------------------------
