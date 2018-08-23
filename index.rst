@@ -18,10 +18,7 @@ Software Requirements
    :caption: Software Requirements
    :name: master_sr
 
-   software/git
-   software/docker
-   software/jupyter
-   software/vscode
+   software/req
 
 Lecture 1: Types & I/O
 ======================
