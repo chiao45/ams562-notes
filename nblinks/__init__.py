@@ -12,7 +12,8 @@ __repo_abs_path__ = os.path.abspath(
 # get branch
 
 __branch__ = open(__repo_abs_path__ + os.sep + '.git' +
-                  os.sep + 'HEAD', 'r').read()[:-2].split('/')[-1]
+                  os.sep + 'HEAD', 'r').read().split('/')[-1]
+__branch__ = __branch__[:__branch__.find('\n')]
 
 print('ams562-notes branch: %s' % __branch__)
 
@@ -25,9 +26,9 @@ __lecs__ = os.listdir(__lec_path__)
 __lecs__ = [lec for lec in __lecs__ if os.path.isdir(
     __lec_path__ + os.sep + lec)]
 
-__nbview_pattern__ = 'https://nbviewer.jupyter.org/github/chiao45/ams562-notes/blob/{}/lectures/%s/'.format(
+__nbview_pattern__ = 'https://nbviewer.jupyter.org/github/chiao45/ams562-notes/blob/{}/notebooks/%s/'.format(
     __branch__)
-__cpp_source__ = 'https://raw.githubusercontent.com/chiao45/ams562-notes/{}/lectures/%s/'.format(
+__cpp_source__ = 'https://raw.githubusercontent.com/chiao45/ams562-notes/{}/programs/%s/'.format(
     __branch__)
 
 _extlinks = {}
