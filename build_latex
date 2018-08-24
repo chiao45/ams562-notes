@@ -1,0 +1,5 @@
+#!/bin/sh
+
+make latex
+cd _build/latex
+make || echo "building latex failed"
