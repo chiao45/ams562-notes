@@ -126,7 +126,8 @@ By "I", I mean myself. By "We", I mean the
 noting that this lecture note is mainly created for preparing the course,
 and sharing some experiences in programming `C++`_. So I will use the informal
 word "You" to address the students. Finally, the term `C++`_ implicitly
-refer to *C++11* (later), for other versions, I will address them explicitly.
+refer to *C++11* (see :ref:`intro_lec0_std`), for other versions, I will
+address them explicitly.
 
 `Sphinx`_ is really a great tool for writing this note. Here, I leverage
 several nice directives to do highlighting.

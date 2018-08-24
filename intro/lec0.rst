@@ -200,3 +200,31 @@ Well, I vote for the second one!
 However, manually doing this is a pain. We shall leverage the automatic tool
 such as `clang-format`_, which can be used through our editor (`vscode`_)
 through the `Docker`_ image for this course.
+
+.. _intro_lec0_std:
+
+`C++`_ Standard
+---------------
+
+The first ISO `C++`_ standard was ratified in 1998, so that version is referred
+as C++98. Later on, we got C++03. **The game changer is C++11**, which has
+introduced many unique features. Personally, I think C++11 is totally a
+different language compared to its previous versions. For this course, all
+materials are based on C++11, and the term `C++`_ is implicitly referred to
+version 11, for instance, the following statement is correct under this
+assumption: *In C++, you can use lambdas instead of functors*.
+
+.. the following information might be outdated!
+
+The current standard is C++17. However, in scientific computing, the truth is
+that there is usually a lag between current standard in practice and current
+ISO standard. The good news is that most of open-sourced projects have moved/
+are moving to C++11, it's safe to assume C++11 and teach it in a course with
+title *scientific programming*. As a matter of fact, the first
+feature-complete GCC was version 4.8.1 [#]_, which was released on May 31,
+2013 [#]_. Also, our
+`Seawulf <https://it.stonybrook.edu/help/kb/understanding-seawulf>`_
+cluster's system GCC has version 4.8.5, which means it fully supports C++11.
+
+.. [#] see `GCC C++ standard supports <https://gcc.gnu.org/projects/cxx-status.html>`_
+.. [#] see `GCC release <https://gcc.gnu.org/releases.html>`_
