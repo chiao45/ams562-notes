@@ -84,13 +84,12 @@ directly using `C++`_
 "By the end of the day, all I want is something..."
 +++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Well, with `C++`_, you are still struggling with software designs
-*"by the end of the day"*. Typically, it's not easy to get something working
-in `C++`_ as nicely as *high level* (future) programming languages in short
-terms.
+Well, with `C++`_, *"by the end of the day"*, you are still struggling with
+software designs. Typically, it's not easy to get something working in `C++`_
+as nicely as *high level* (future) programming languages in short terms.
 
-"My project/research is still at infant stage, I wanna to test some ideas."
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+"My project/research is still at infant stage, I wanna test some ideas."
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 `C++`_ is not a friendly language for developing algorithms... `MATLAB`_, for
 example, is a great framework for developing numerical algorithms. As a matter

@@ -57,8 +57,8 @@ Of course, the old C style comment is also valid, i.e.
     For `C++`_, it's better to stick with :code:`//` even though you have
     multiple lines of comments.
 
-Comments make others life better.
-+++++++++++++++++++++++++++++++++
+Making comments make others life better.
+++++++++++++++++++++++++++++++++++++++++
 
 Imagine you join a research group and continue on some former member's work.
 The only thing you get is his/her codes with no comments. Then, let's just
@@ -66,20 +66,20 @@ hope the codes are very robust and have no errors (99.99% chance no!).
 Otherwise, it will waste you lots of time to figure out what he/she has done.
 
 Also notice that, eventually, you will become someone's "former" member, so
-do not let your academic litter brothers/sisters run into the same situation.
+do not make your academic litter brothers/sisters hate you.
 
 "I'm so glad that I commented on this file nicely!"
 +++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Actually, you are the one who benefit the most from comments. While doing
-research, an important thing that everybody needs to keep in mind is to make
-the work reproducible. One needs to make sure that his/her results can be
+Actually, you are the one who benefit the most from making comments. While
+doing research, an important thing that everybody needs to keep in mind is to
+make the work reproducible. One needs to make sure that his/her results can be
 reproduced in the future. Therefore, make comments for yourselves in the
 future.
 
-Of course, there are better tools, e.g. `Git`_, to help you manage your works.
-But comments are the most fundamental requirement that you need to organize
-yourselves nicely.
+Of course, there are better tools, e.g. `Git`_ see :ref:`here <soft_req_git>`,
+to help you manage your work. But making comments are the most fundamental
+requirement that you need to organize yourselves nicely.
 
 Let's take a look at the following examples:
 

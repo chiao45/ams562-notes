@@ -38,16 +38,16 @@ programs must be first **compiled** into executable binaries.
 Now, copy the one line program into a file with name ``simple.cpp``, inside
 a terminal, invoke:
 
-.. code-block:: bash
+.. code-block:: console
 
-    g++ simple.cpp
+    $ g++ simple.cpp
 
 This by default will compile the program into an executable file called
 ``a.out`` that lies in the same directory. To run the program, type:
 
-.. code-block:: bash
+.. code-block:: console
 
-    ./a.out
+    $ ./a.out
 
 .. tip::
 
@@ -81,15 +81,15 @@ Unfortunately, you cannot write one line code for "Hello World!" in `C++`_. In
 
 And simply type:
 
-.. code-block:: sh
+.. code-block:: console
 
-    python3 hello_world.py
+    $ python3 hello_world.py
 
 You should see "Hello World!" on your screen. Or even something like:
 
-.. code-block:: bash
+.. code-block:: console
 
-    python3 -c "print('Hello World!')"
+    $ python3 -c "print('Hello World!')"
 
 However, there is no built-in ``print`` method in `C++`_, we have to include
 the standard input and output library, i.e. ``iostream``.

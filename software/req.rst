@@ -25,8 +25,8 @@ packages (including OS) regardless your host machine systems. This class is
 cluster-free, i.e. you don't need to worry about dealing with our clusters and
 running everything through command lines.
 
-First, read the description of our `Docker`_ container
-`here <AMS 562 container>`_. Once you have installed `Docker`_ and `Python`_,
+First, read the description of our `Docker`_ container, i.e.
+`AMS 562 container`_. Once you have installed `Docker`_ and `Python`_,
 download these two scripts that will ease the process for using our container.
 
 - Desktop driver: `ams562_desktop.py <https://raw.githubusercontent.com/compdatasci/ams562-desktop/master/ams562_desktop.py>`_
@@ -190,7 +190,7 @@ make things more consistent with our `Docker`_ setting, we find that using
 
 Notice that if you use `Git`_ through :ref:`SSH <soft_req_git_ssh>`, then you
 need to run the following command inside the terminal of our
-`container <AMS 562 container>`_:
+`container <https://github.com/compdatasci/ams562-desktop>`_:
 
 .. code-block:: console
 
@@ -204,7 +204,7 @@ Using Terminal Inside VScode
 ----------------------------
 
 Using the integrated terminal of vscode is recommended, you can create/return
-to a terminal session by type :code:``CTRL-```. By default, it will put you
+to a terminal session by type ``CTRL-```. By default, it will put you
 at the *current working directory*, then you can invoke any commands inside
 this integrated terminal.
 
