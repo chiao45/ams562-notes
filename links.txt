@@ -24,3 +24,5 @@
 .. _clang-format: https://clang.llvm.org/docs/ClangFormat.html
 .. _vscode: https://code.visualstudio.com/
 .. _Docker: https://www.docker.com/
+.. _AMS 562 container: https://github.com/compdatasci/ams562-desktop
+.. _SmartGit: https://genome.sph.umich.edu/w/images/6/64/SmartGit.pdf
