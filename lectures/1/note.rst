@@ -838,13 +838,13 @@ Consider the following program:
 
 Inside a terminal, compile the program:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ g++ cout_vs_cerr.cpp
 
 Let's first run the program normally
 
-.. code-block:: bash
+.. code-block:: console
 
     $ ./a.out
     This is from cout
@@ -854,7 +854,7 @@ Both of "This is from cout" and "This is from cerr" are printed on the screen.
 Bash allows you to *redirect* standard outputs by using :code:`>` when you run
 any programs. Now rerun the program:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ ./a.out >cout.txt
     This is from cerr
@@ -864,7 +864,7 @@ Only "This is from cerr" is shown on the screen, the output that was written to
 built-in commands ``ls`` and ``cat`` to list *cwd* and print out the content
 of a file.
 
-.. code-block:: bash
+.. code-block:: console
 
     $ ls
     a.out  cout.txt  cout_vs_cerr.cpp
@@ -874,7 +874,7 @@ of a file.
 In addition, you redirect a specific file descriptor by adding the FD handle
 in front of :code:`>`. Finally rerun the program:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ ./a.out 1>cout.txt 2>cerr.txt
     $ ls
@@ -888,12 +888,12 @@ respectively. In practice, this allows you easily to group the program outputs
 into normal progress logging information and error/warning information. For
 instance:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ ./my_prog 1>prog.log 2>error.log
 
 If something goes wrong, the user can always trace back in "error.log" given
-the assumption that your program write error/warning messages to
+the assumption that your program writes error/warning messages to
 :cpp:expr:`std::cerr`.
 
 .. tip::
