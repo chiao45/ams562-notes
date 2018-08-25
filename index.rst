@@ -50,7 +50,7 @@ Case Studies
 
    cases/doxygen
    cases/inter_python
-   cases/dyload
+   cases/parallel
    cases/temp_meta
 
 
