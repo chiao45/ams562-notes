@@ -553,8 +553,7 @@ accesses to the first element of :cpp:expr:`mat`, which is an array, say
 :cpp:expr:`mat0`, the accesses the first element of :cpp:expr:`mat0`, i.e.
 :code:`mat0[0]`.
 
-.. _lec1_array_
-:
+.. _lec1_cstr:
 
 The :code:`char[]`
 ++++++++++++++++++

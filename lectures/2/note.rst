@@ -313,6 +313,145 @@ Dynamic Memory Allocation/Deallocation
    :local:
    :backlinks: top
 
+Stack Memory vs. Heap Memory
+----------------------------
+
+The stack memory is fast but limited. In general, the stack is fixed. Ideally,
+we want to use the stack memory, because it is directly accessible to the CPU
+stack registers and the operating system can even directly allocate the stack
+in the cache. The fact is that all variables are constructed in the stack
+memory.
+
+.. note:: All arrays are stored in the stack.
+
+However, due to the limited size, we can easily get ourselves into overflow.
+
+.. code-block:: cpp
+
+    double huge_data[extremely_large_size]; // this will break!
+
+An easier way to understand this limitation is to look at the following
+*recursive function*:
+
+.. code-block:: cpp
+
+    void never_call(int i) {
+        int j = 1;
+        int k = i;
+        std::cout << k << std::endl;
+        never_call(j+k); // recursively call "myself"
+    }
+
+Each time, when the function :code:`never_call` is invoked, three variables
+will be created---``i`` (local copy), ``j`` and ``k``. Due to the recursive
+mechanism, all the variables will live in the stack thus resulting
+``segmentation fault`` eventually because of stack size overflow.
+
+The **heap memory**, on the other side, is, loosely speaking, the left-over
+memory in the RAM after 1) your program is loaded and 2) the memory is
+allocated. Unlike the stack memory, where all variables are stored, the space
+we request in the heap is not directly appeared in the program, we need to
+create a :ref:`pointer <lec2_ptr>` that points to the leading (usually)
+memory address of that chuck of memory space.
+
+.. note::
+
+    We typically refer variables that created in the stack as the *meta data*
+    that describes the actual data, which is typically large and stored in the
+    heap.
+
+The heap memory is used for *dynamic memory allocation* (a.k.a runtime memory
+allocation), which is usually used in the following two situations:
+
+1. the data size is large, and
+2. the data size is unknown and dynamically changing.
+
+For the second one, a typical situation is that we you write a word processing
+program, you don't know how many characters the user may use, so a memory
+space that can grow dynamically is must.
+
+.. tip::
+
+    For some applications, even though the data size cannot be determined
+    beforehand, but the upper bound can be precisely estimated. In this case,
+    if the upper bound is small, then you should use the stack memory!
+    One example would be create a :ref:`C-string <lec1_cstr>` to store
+    the user input filename, i.e. :code:`char filename_buffer[200]`.
+
+.. _lec2_dyn_new:
+
+Dynamic Memory Allocation
+-------------------------
+
+Since we already learned that we need to use :ref:`pointers <lec2_ptr>` to
+point to the memory locations in the head, you should not be surprised that
+dynamic memory allocations involve using pointers. The syntax is
+:code:`[type] *ptr = new [type]`, where the operator ``new`` is to allocate
+memory dynamically.
+
+.. code-block:: cpp
+
+    int *bad_ptr = 3; // ERROR!
+    int *ptr = new ptr;  // request a valid place first
+    *ptr = 3;   // dereferencing a valid pointer is fine
+    // or
+    int *ptr_init = new int (3);
+
+Dynamic Memory Deallocation
+---------------------------
+
+As we already learned in the :ref:`scope <lec1_scope>`, all variables have
+the lifetime that is bounded by the scope, i.e.
+
+.. code-block:: cpp
+
+    {   // scope begins
+        int a; // push a into the stack
+    }   // scope ends, a is popped
+
+Does this rule applied for dynamic memory in the heap? Recall that a
+:ref:`lec2_ptr` is also a variable.
+
+.. code-block:: cpp
+    :linenos:
+
+    {   // scope begins
+        int *ptr = new int;  // allocate a dynamic chuck
+    }   // scope ends, ptr is popped
+
+In line 3, once the scope ends, ``ptr`` will be popped out and no long visible,
+what about the dynamic memory it used to point at?
+
+.. warning:: Dynamic memory will not be automatically cleaned up!
+
+Actually, the code above is extremely dangerous, because once :code:`ptr`
+is popped out, it's impossible for you to access to the dynamic memory space
+that ``ptr`` used to point at. People refer this as *memory leaks*.
+
+To relax a dynamic allocation, we need the deallocation operator ``delete``,
+the syntax is :code:`delete [ptr];`.
+
+.. code-block:: cpp
+
+    {
+        int * ptr = new int;
+        delete ptr;  // freed here!
+    }   // no leak!
+
+.. important::
+
+    There must be exactly a ``delete`` that matches to a ``new``.
+
+.. code-block:: cpp
+
+    double *p = new double;  // allocate here
+    p = new double;     // reallocate here, previous allocation leaked!
+    delete p;   // one double is leaked.
+    // delete p; // delete twice won't work and dangerous!
+
+Dynamic Array Allocation/Deallocation
+-------------------------------------
+
 .. _lec2_def_list:
 
 Defining Multiple Variables
