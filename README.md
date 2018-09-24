@@ -6,13 +6,13 @@ This repository contains the lecture notes for course [AMS562 *Intro to Scientif
 
 As this course targets students who are interested in *scientific programming*, Linux system is assumed to be the teaching environment. We have been providing Linux environment through [Docker](https://www.docker.com/) containers since last year (2017),and each of those containers comes with a light-weight desktop environment (no need to worry about using the terminal). The Docker setting allows us to provide students a unified programming environment. To further simplify the workflow with Docker, a Python-based driver script is provided in order to easily run, mount, and create the desktop environment in browser with Docker command.
 
-***NEW*** Starting from this year (2018), a [Jupyter](http://jupyter.org/) based environment is provided so that students can test their codes without worrying about compilation.
+***NEW*** Starting this year (2018), a [Jupyter](http://jupyter.org/) based environment is provided so that students can test their codes without worrying about compilation.
 
 For more detailed information regarding how to use the Docker image, please check [ams562-desktop](https://github.com/compdatasci/ams562-desktop).
 
 ## License
 
-All examples are materials in this repository are free to use and distributed under MIT license.
+All examples and materials in this repository are free to use and distributed under MIT license.
 
 ## How to Compile
 
