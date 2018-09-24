@@ -531,4 +531,4 @@ Now, try to figure out the types of the following variables.
 
 .. code-block:: cpp
 
-    int a=0,*b=0,&c=a,**d=&b,&d=c,**&e=d,f=d; // read from right to left
+    int a=0,*b=0,&c=a,**d=&b,&e=c,**&f=d,g=e; // read from right to left
