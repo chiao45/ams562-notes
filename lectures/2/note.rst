@@ -225,7 +225,7 @@ An obvious one is that you can use both to access and modify an object.
 
     double tol = 1e-6;
     double &tol_ref = tol;
-    double &tol_ptr = &tol;
+    double *tol_ptr = &tol;
 
     tol_ref = 1e-2;
     std::cout << tol << std::endl; // what is the output?
@@ -446,11 +446,54 @@ the syntax is :code:`delete [ptr];`.
 
     double *p = new double;  // allocate here
     p = new double;     // reallocate here, previous allocation leaked!
-    delete p;   // one double is leaked.
+    delete p;   // the first double is leaked.
     // delete p; // delete twice won't work and dangerous!
 
 Dynamic Array Allocation/Deallocation
 -------------------------------------
+
+A common use of dynamic memory allocation is to request a large chunk of
+contiguous memory space, i.e. an array, during runtime. For this task, should
+use operator :code:`new[]` and relax the dynamic array with operator
+:code:`delete[]`.
+
+.. code-block:: cpp
+
+    double *data;       // create the meta data
+    unsigned long HUGE = ...;
+    data = new double [HUGE]; // request the dynamic array of size HUGE
+    // do work with data
+    // don't forget to relax the memory
+    delete[] data;
+
+.. note::
+
+    A :ref:`pointer <lec2_ptr>` can be accessed like an
+    :ref:`array <lec1_array>` using operator :code:`[]`. For instance, given
+    the example above, you can do :code:`data[0]` to access the first element
+    in the dynamic array, and :code:`data[n]` for the n-th one.
+
+A common mistake is mixing :code:`new/new[]` with :code:`delete/delete[]`.
+
+.. warning::
+
+    :code:`new` must be coupled with :code:`delete`, and the same rule applies
+    for :code:`new[]` and :code:`delete[]`.
+
+.. code-block:: cpp
+
+    int *p1 = new int;
+    delete [] p1; // WRONG!
+    double *p2 = new double [2];
+    delete p2; // WRONG!
+
+Try the :nblec_2:`dyn`.
+
+.. note::
+
+    With modern `C++`_, you really don't need to worry that much about managing
+    dynamic memory. In the future lectures, we will learn using ``vector`` as
+    well as the so-called *smart pointers*.
 
 .. _lec2_def_list:
 
@@ -460,3 +503,32 @@ Defining Multiple Variables
 .. contents::
    :local:
    :backlinks: top
+
+Now, with the knowledge of compound types, i.e. :ref:`pointers <lec2_ptr>` and
+:ref:`references <lec2_ref>`, I think it's a good time for you to understand
+a tricky part in `C++`_---defining multiple variables.
+
+You can define multiple variables like:
+
+.. code-block:: cpp
+
+    int i, j;  // define two variables without initialization
+    int k=0, t; // define another two, initialize k
+    float x, y=1.0f; // only initialize the second one
+    std::string depart("ams"), course("562"); // initialize both
+
+This is pretty intuitive. Now let's say I want create two points:
+
+.. code-block:: cpp
+
+    int *ptr1, ptr2;
+    ptr2 = nullptr; // ERROR!!
+
+This is because compound types have the local property. Therefore, ``ptr2`` is
+actually just an integer.
+
+Now, try to figure out the types of the following variables.
+
+.. code-block:: cpp
+
+    int a=0,*b=0,&c=a,**d=&b,&d=c,**&e=d,f=d; // read from right to left
