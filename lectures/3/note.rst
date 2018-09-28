@@ -79,3 +79,95 @@ There are other types of assignment operators in `C++`_.
 There are so-called *compound assignment operators*, and you under these by the
 following expression: :code:`A?=B` for :code:`?` :math:`\in`
 :code:`{+,-,*,/,%}` is equivalent to :code:`A=A?B`.
+
+.. _lec3_inc_dec_ops:
+
+Increment & Decrement Operators
+-------------------------------
+
+In `C++`_, we also have increment and decrement operators for integers to
+increase or decrease their values by 1.
+
+1. :code:`++`: increment operator
+2. :code:`--`: decrement operator
+
+Use as Suffix
++++++++++++++
+
+These operators can be used as suffixes, e.g.
+
+.. code-block:: cpp
+
+    int a = 0;
+    a++;
+    std::cout << a; // print out 1
+
+**Post- increment/decrement operators modify the value of the target object
+after processing the current statement.**
+
+.. code-block:: cpp
+
+    int a = 0;
+    int b = a++;
+    std::cout << "a=" << a;
+    std::cout << "b=" << b;
+    // what is a? what is b? try this!
+
+
+Use as Prefix
++++++++++++++
+
+These operators, of course, can be used as prefixes, e.g.
+
+.. code-block:: cpp
+
+    int a = 0;
+    --a;
+    std::cout << a; // print out -1
+
+
+**Pre- increment/decrement operators modify the value of the target object
+before processing the current statement.**
+
+.. code-block:: cpp
+
+    int a = 0;
+    int b = --a;
+    std::cout << "a=" << a;
+    std::cout << "b=" << b;
+    // what is a? what is b? try this!
+
+An Exercise
++++++++++++
+
+Take a look at the following program:
+
+.. code-block:: cpp
+    :linenos:
+
+    int i1 = 1;
+    int i2 = ++i1;
+    int i3 = ++ ++i1;
+    int i4 = i1++;
+    // we cannot do i1++ ++
+    std::cout << "i1 = " << i1 << "\n"
+              << "i2 = " << i2 << "\n"
+              << "i3 = " << i3 << "\n"
+              << "i4 = " << i4 << "\n";
+
+.. _lec3_logic_ops:
+
+Comparison & Logical Operations
+-------------------------------
+
+To compare two values, you need to use comparison operators in `C++`_:
+
+1. :code:`<`: strictly less than
+2. :code:`>`: strictly greater than
+3. :code:`<=`: less than or equal to
+4. :code:`>=`: greater than or equal to
+5. :code:`==`: equal to
+6. :code:`!=`: not equal to
+
+The resulting object of the comparison operators are boolean flags, i.e. either
+:code:`true` or :code:`false`.
