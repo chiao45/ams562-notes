@@ -327,6 +327,208 @@ Conditional Statements
 The :code:`if` Statement
 ++++++++++++++++++++++++
 
+An :code:`if` statement conditionally execute another statement based on
+whether or not a specified condition is ``true``.
+
+.. code-block:: cpp
+
+    if (<condition>) {
+        // do things if <condition> is true
+    }
+
+For example:
+
+.. code-block:: cpp
+    :linenos:
+
+    std::string dep;
+    std::cout << "enter the department:";
+    std::cin >> dep;
+    if (dep == "ams") {
+        std::string course;
+        std::cout << "enter the class number:";
+        std::cin >> course;
+        std::cout << "welcome to ams" << course << std::endl;
+    }
+
+Line 4-9 will only be executed if the input ``dep`` is :code:`"ams"`. Compile
+and run this program.
+
+Of course, you can add ``else`` so that the condition is complete, the syntax
+is:
+
+.. code-block:: cpp
+
+    if (<condition>) {
+        // do things if <condition> is true
+    } else {
+        // do things if not <condition>
+    }
+
+For example:
+
+.. code-block:: cpp
+    :linenos:
+
+    unsigned n;
+    std::cout << "enter a non-negative whole number:";
+    std::cin >> n;
+    std::string odd_or_even;
+    if (n%2) {
+        odd_or_even = "odd";
+    } else {
+        odd_or_even = "even";
+    }
+    std::cout << "you just entered an " << odd_or_even << " number\n";
+
+Multiple (more than 2) condition branches are supported with :code:`else if`
+statement, the syntax is:
+
+.. code-block:: cpp
+
+    if (<condition1>) {
+        // do things if <condition1> is true
+    } else if (<condition2>) {
+        // do things if <condition2> is true
+    } else if (<condition3>) {
+        // do things if <condition3> is true
+    } else {
+        // ow
+    }
+
+.. note::
+
+    Multiple condition branches are executed in sequential order, and the
+    statement will terminate til reach the first ``true`` case of the end of
+    the ``if`` statement.
+
+.. note::
+
+    A :code:`if-else if-else if-...-else` is considered as a **single**
+    statement!
+
+Let's take a look at the following two different programs:
+
+.. code-block:: cpp
+
+    const int n = 2;
+    int a;
+    if (n == 2) {
+        a = 100;
+    } else if (n % 2 == 0) {
+        a = 200;
+    } else {
+        a = 300;
+    }
+    std::cout << "a=" << a << std::endl;
+
+What is the value of ``a``?
+
+.. code-block:: cpp
+
+    const int n = 2;
+    int a;
+    if (n == 2) {
+        a = 100;
+    }
+    if (n%2 == 0) {
+        a = 200;
+    }
+    if (n%2) {
+        a = 300;
+    }
+    std::cout << "a=" << a << std::endl;
+
+What about this one?
+
+Command Line Inputs
+```````````````````
+
+So far, our :ref:`main <intro_simple_cpp_main>` functions are defined without
+any input arguments. However, it's common to have ``argc`` and ``argv`` as the
+function input parameters, i.e.
+
+.. code-block:: cpp
+
+    // main.cpp
+    int main(int argc, char *argv[]) {
+        return 0;
+    }
+
+Where ``argc`` is an integer and ``argv`` is an :ref:`array<lec1_array>` of
+:ref:`C-strings <lec1_cstr>`. So what are the meanings of these variables?
+``argc`` indicates the number of input arguments from command line when the
+program is executed, and ``argv`` stores their values in raw strings.
+
+For instance, you can :ref:`compile <intro_simple_cpp_compile>` the program
+into an executable binary :code:`a.out` by:
+
+.. code-block:: console
+
+    $ g++ -std=c++11 main.cpp
+
+Then, you can run the program by:
+
+.. code-block:: console
+
+    $ ./a.out
+
+Which means the command line arguments is :code:`./a.out`. In the program,
+``argc`` is 1 and the first element (C-string) in ``argv``, i.e.
+:code:`argv[0]`, stores the name of the executable---:code:`./a.out`.
+
+.. note::
+
+    All programs have at least one command line argument, which stores their
+    names.
+
+If you type:
+
+.. code-block:: console
+
+    $ ./a.out 1 2 3 abc
+
+The program's ``argc`` is 5 with :code:`argv={"./a.out","1","2","3","abc"}`.
+
+The functionality of command line inputs is important, because it enables
+*batch processing* with user inputs.
+
+.. note::
+
+    In most cases, interactive inputs, e.g. through :code:`std::cin`
+    and keyboards, are not possible, especially for scientific computing where
+    programs usually run on clusters.
+
+Now, combining this information with ``if`` statement, you can parse the user
+command line inputs. In addition, it's common that you want the user to pass
+some numerical values, so converting from C-strings to integral/floating
+numbers is necessary. This can be done with the functions :code:`std::atoi`
+and :code:`std::atof` that are defined in official :code:`<cstdlib>` library.
+
+.. code-block:: cpp
+
+    # include <cstdlib>
+
+    ...
+
+    const char * i_str = "4";
+    const char * f_str = "1e-1";
+    const int i = std::atoi(i_str);
+    const double f = std::atof(f_str);
+    // i is 4 and f is 0.1
+
+.. hint::
+
+    Check the number of input arguments by :code:`if (argc < 3) ...`
+
+.. only:: html
+
+    Compile and run :download:`cmd_inputs.cpp<../../programs/3/cmd_inputs.cpp>`.
+
+.. only:: latex
+
+    Compile and run :cpplec_3:`cmd_inputs`.
+
 .. _lec3_stm_cond_switch:
 
 The :code:`switch` Statement

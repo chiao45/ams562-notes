@@ -24,6 +24,8 @@ status of the program.
 Here is the simplest `C++`_ program, :code:`int main() { return 0; }`,
 which does nothing but just returns ``EXIT_SUCCESS`` to your system.
 
+.. _intro_simple_cpp_compile:
+
 Compile the one-line program
 ----------------------------
 
