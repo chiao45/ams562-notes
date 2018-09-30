@@ -155,6 +155,8 @@ Take a look at the following program:
               << "i3 = " << i3 << "\n"
               << "i4 = " << i4 << "\n";
 
+Run this example in :nblec_3:`inc_dec`.
+
 .. _lec3_logic_ops:
 
 Comparison & Logical Operations
@@ -193,6 +195,8 @@ For logical operators, we have:
     std::cout << "not 1.0<0.0 is: " << (!(1.0<0.0));
     std::cout << "either 10>2 or 5>2 but not both: " << ((10>2)^(5>2));
 
+Try out comparison and logical operators in :nblec_3:`logi_comp`.
+
 .. _lec3_common_math:
 
 Common Mathematical Operations
@@ -219,6 +223,8 @@ most common mathematical operations that can potentially become very handy.
 For a complete list and the usage, please refer to
 `Standard library header <cmath> <https://en.cppreference.com/w/cpp/header/cmath>`_.
 
+Try out this :nblec_3:`math`.
+
 .. _lec3_ptr_arith:
 
 Pointer Arithmetic
@@ -226,6 +232,112 @@ Pointer Arithmetic
 
 Again, pointers... `C++`_ allows you to perform arithmetic operations on
 pointers. Of course, the means are different from
-:ref:`the elementary arithmetic operations <lec3_arith_ops>`.
+:ref:`the elementary arithmetic operations <lec3_arith_ops>`. You can add or
+subtract an integer from a pointer, e.g.
+
+.. code-block:: cpp
+    :linenos:
+
+    int obj[2];
+    int *ptr = obj; // equiv to ptr = &obj[0]
+    int *ptr_next = ptr+1;
+    int *ptr_ori = ptr_next-1;
+
+Here, adding one to ``ptr`` meaning that advance ``ptr`` to next memory address
+thus resulting the next adjacent pointer, i.e. ``ptr_next``. Similarly, in line
+4, subtracting one from a pointer meaning that move the pointer to its previous
+adjacent position, i.e. ``ptr_ori``.
+
+.. note::
+
+    Adding/subtracting integers from a pointer result another pointer.
+
+You can also subtract two pointers, e.g. :code:`ptr1-ptr2`. The result is an
+integer that represents the *signed distance* between the two pointers.
+
+.. code-block:: cpp
+
+    float a[2];
+    float *ptr_a = a, *ptr_b = ptr_a+1;
+    std::cout << "distance in memory between a[0] and a[1] is: " << (ptr_a-ptr_b); // -1
 
 
+:ref:`Increment and decrement operators <lec3_inc_dec_ops>` are also applicable
+to pointers, i.e.
+
+.. code-block:: cpp
+    :linenos:
+
+    int arr[5] = {1,2,3,4,5};  // an array of length 5
+    int *ptr = arr;
+    std::cout << *ptr; // 1
+    std::cout << *ptr++; // 1, why??
+    std::cout << *++ptr; // 3
+    std::cout << *ptr--; // 3, where is ptr now?
+
+Let's take a look at the code above. Line 1 and 2 define an array of size 5 and
+initialize its value to :code:`{1,2,3,4,5}`, then define a pointer ``ptr`` that
+points to the array.
+
+Line 3 simply shows the value of :code:`arr[0]` by deferencing :code:`ptr`.
+Line 4 will first prints the value of :code:`*ptr` then advances ``ptr`` to its
+nest position, i.e. :code:`arr[1]`. Line 5 first advances ``ptr`` to
+:code:`arr[2]` and displays its value.
+
+For more, take a look at this :nblec_3:`ptr_arith`.
+
+.. _lec3_stm:
+
+Control Statements
+==================
+
+.. contents::
+   :local:
+   :backlinks: top
+
+A statement in `C++`_, roughly speaking, is a single line of code that ends
+with semicolon, i.e. :code:`;`, which can be executed by the program.
+
+Control statements are special statements in `C++`_ (or any other programming
+languages) that control how/whether other statements will be executed. With
+:ref:`my fundamental assumption <intro_fund>`, I will not go detail in the
+concept of control statements. I will mainly focus on introducing the
+syntax and giving examples.
+
+.. note::
+
+    It's probably a good idea to review the concept of
+    :ref:`scope <lec1_scope>` in `C++`_.
+
+In general, control statements in `C++`_ can be put into three families:
+
+1. Conditional statements
+2. Loop statements
+3. Jump statements
+
+.. _lec3_stm_cond:
+
+Conditional Statements
+----------------------
+
+`C++`_ provides two control statements to perform conditional executions.
+
+.. _lec3_stm_cond_if:
+
+The :code:`if` Statement
+++++++++++++++++++++++++
+
+.. _lec3_stm_cond_switch:
+
+The :code:`switch` Statement
+++++++++++++++++++++++++++++
+
+.. _lec3_stm_loop:
+
+Loop Statements
+---------------
+
+.. _lec3_stm_jump:
+
+Jump Statements
+---------------
