@@ -171,3 +171,61 @@ To compare two values, you need to use comparison operators in `C++`_:
 
 The resulting object of the comparison operators are boolean flags, i.e. either
 :code:`true` or :code:`false`.
+
+For logical operators, we have:
+
+1. :code:`&&`: logical and
+2. :code:`||`: logical or
+3. :code:`!`: logical not (use as unary operator)
+4. :code:`^`: logical xor
+
+.. note::
+
+    Technically speaking, :code:`^` is a bitwise operator not a logical
+    operator. However, since ``true`` can be converted into integer 1 and
+    0 for ``false``, and :code:`1^0=1`, :code:`1^1=0`, and :code:`0^0=0`,
+    which behave exactly like an xor operation.
+
+.. code-block:: cpp
+
+    std::cout << "1<2 and 2<3 is: " << (1<2 && 2<3);
+    std::cout << "3==4 || 3==6/2 is: " << (3==4 || 3==6/2);
+    std::cout << "not 1.0<0.0 is: " << (!(1.0<0.0));
+    std::cout << "either 10>2 or 5>2 but not both: " << ((10>2)^(5>2));
+
+.. _lec3_common_math:
+
+Common Mathematical Operations
+------------------------------
+
+As applied scientists who do programming, there is not doubt that using common
+mathematical functions is necessary. Unlike `MATLAB`_, in which the common
+mathematical functions are defined as built-ins, `C++`_ doesn't know how to
+do math by default (sigh...). Fortunately, the *standard math library* provides
+most common mathematical operations that can potentially become very handy.
+
+.. code-block:: cpp
+
+    #include <cmath>  // standard math interface
+
+    ...
+
+    std::cout << "sin(pi) is: " << std::sin(M_PI);
+    std::cout << "cos(0) is: " << std::cos(0.0);
+    std::cout << "arcsin(1) is: " << std::asin(1.0);
+    std::cout << "log 2 of base 2 is: " << std::log2(2);
+    std::cout << "|-1| is: " << std::abs(-1);
+
+For a complete list and the usage, please refer to
+`Standard library header <cmath> <https://en.cppreference.com/w/cpp/header/cmath>`_.
+
+.. _lec3_ptr_arith:
+
+Pointer Arithmetic
+------------------
+
+Again, pointers... `C++`_ allows you to perform arithmetic operations on
+pointers. Of course, the means are different from
+:ref:`the elementary arithmetic operations <lec3_arith_ops>`.
+
+
