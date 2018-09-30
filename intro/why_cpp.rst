@@ -137,6 +137,8 @@ several nice directives to do highlighting.
 
 **Notes**, used for emphasis on technical points
 
+.. _intro_fund:
+
 .. note::
   My fundamental assumption is that you all are new to `C++`_ programming but
   with decent experiences in at least one of `Python`_, `MATLAB`_/`Octave`_, or
