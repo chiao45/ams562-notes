@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
   double eps = 1e-2;
   if (argc > 2) {
     // read in the user specified value
+    // what will happen if the statement is argc==2?
     eps = std::atof(argv[2]);
   }
 
