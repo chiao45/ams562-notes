@@ -861,10 +861,155 @@ Now, open this :nblec_3:`for_fll`.
 The :code:`while` Loop
 ++++++++++++++++++++++
 
+The :code:`while` loop, like :code:`for`, is another iterative statement in
+`C++`_. The syntax is:
+
+.. code-block:: cpp
+
+    while (<condition>) {
+        <evaluate the condition>
+        // do work
+        <update conditional statement>
+    }
+
+You can easily translate a :code:`for` loop into a :code:`while` loop:
+
+.. code-block:: cpp
+
+    // for version
+    for (int i = 0; i < n; ++i) {
+        std::cout << "i=" << i << ' ';
+    }
+
+    // while version
+    int i = 0;
+    while (i<n) {
+        std::cout << "i=" << i << ' ';
+        ++i; // what will happen if this statement is missing?
+    }
+
+Forward Linked List with :code:`while`
+``````````````````````````````````````
+
+We can also implement the :ref:`forward linked list <lec3_stm_loop_struct>`
+with the :code:`while` loop.
+
+Open this :nblec_3:`while_fll`.
+
 The :code:`do-while` Loop
 +++++++++++++++++++++++++
+
+The last loop statement is so-called :code:`do-while` in `C++`_. The syntactic
+form is:
+
+.. code-block:: cpp
+
+    do {
+        // do work
+        <evaluate condition statement>
+    } while (<condition>); // <- semicolon
+
+:code:`while` vs. :code:`do-while`
+``````````````````````````````````
+
+**do-while guarantees that at least one statement will be evaluated**, e.g.
+
+.. code-block:: cpp
+
+    // while version
+    while (false) {
+        std::cout << "never executed\n";
+    }
+
+    // do-while version
+    do {
+        std::cout << "executed!\n";
+    } while (false);
+
+.. warning::
+
+    As a result, it's easy to run into infinite loops with :code:`do-while`
+    mechanism!
+
+Pick the logic bugs in the following code:
+
+.. code-block:: cpp
+
+    // version 1
+    unsigned n = 100u;
+    do {
+        n--;
+    } while (n>=0u);
+
+    // version 2
+    unsigned n;
+    std::cout << "enter an non-negative integer:";
+    std::cin >> n;
+    do {
+        n--;
+    } while (n>0u);
 
 .. _lec3_stm_jump:
 
 Jump Statements
 ---------------
+
+The laster family of control statement is the *jump* statement. This is mainly
+used to :code:`continue` a loop statement and/or :code:`break` it given the
+fact that its conditional expression cannot be easily determined beforehand.
+
+.. code-block:: cpp
+
+    // skip statements if loop counter is odd
+    for (int i = 0; i < n; ++i) {
+        if (i%2) {
+            continue;
+        }
+        // do work
+    }
+
+In the code above, if ``i`` is odd, then the statement will be skipped.
+
+.. code-block:: cpp
+
+    // break a loop if the loop counter is 5
+    for (int i = 0; i < n; ++i) {
+        if (i == 5) {
+            break;
+        }
+        // do work
+    }
+
+In the code above, if ``i`` is 5, then the for loop will be terminated.
+
+A practical example would be interactively talk with the user through
+:code:`std::cin`.
+
+.. code-block:: cpp
+
+    std::string input;
+    std::string buffer;
+    while (true) {
+        std::cout << "enter something:";
+        std::cin >> input;
+        if (input != "break") {
+            std::cout << "you entered: "
+                      << input
+                      << ", the loop will continue\n";
+            // clear the buffer in cin in case the user may enter more
+            // than a word
+            std::getline(std::cin, buffer);
+            continue;
+        } else {
+            std::cout << "bye!\n";
+            break;
+        }
+    }
+
+.. only:: html
+
+    Play around with :download:`cmd_inputs.cpp<../../programs/3/ita_cin.cpp>`.
+
+.. only:: latex
+
+    Play around with :cpplec_3:`ita_cin`.
