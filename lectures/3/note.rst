@@ -529,15 +529,340 @@ and :code:`std::atof` that are defined in official :code:`<cstdlib>` library.
 
     Compile and run :cpplec_3:`cmd_inputs`.
 
+Writing Efficient :code:`if` Statement
+``````````````````````````````````````
+
+Make the condition branches that have large probability taking higher priority.
+
+.. code-block:: cpp
+
+    unsigned n;
+    std::cin >> n;
+    const unsigned rem = n%100;
+
+    // prefer
+
+    if (rem != 0) {
+        // do work I
+    } else {
+        // do work II
+    }
+
+    // over
+
+    if (rem == 0) {
+        // do work II
+    } else {
+        // do work I
+    }
+
 .. _lec3_stm_cond_switch:
 
 The :code:`switch` Statement
 ++++++++++++++++++++++++++++
 
+Another conditional statement is :code:`switch`, which can be used to choose
+one of the several integral expressions. Let's take a look at the following
+example with a ``char`` as our integral expression.
+
+.. code-block:: cpp
+
+    char c;
+    std::cin >> c;
+    bool is_vowel = false;
+    switch (c) {
+    case 'a':
+        is_vowel = true;
+        break;
+    case 'e':
+        is_vowel = true;
+        break;
+    case 'i':
+        is_vowel = true;
+        break;
+    case 'o':
+        is_vowel = true;
+        break;
+    case 'u':
+        is_vowel = true;
+        break;
+    }
+    if (is_vowel) {
+        // do something
+    }
+
+Each ``case`` is an entry point of the corresponding ``switch`` statement, and
+**the statement will not terminate until it reaches the first break or the end
+of the statement**. Therefore, the code above is equivalent to:
+
+.. code-block:: cpp
+
+    char c;
+    std::cin >> c;
+    bool is_vowel = false;
+    switch (c) {
+    case 'a':
+    case 'e':
+    case 'i':
+    case 'o':
+    case 'u':
+        is_vowel = true;
+        break;
+    }
+    if (is_vowel) {
+        // do something
+    }
+
+.. warning::
+
+    Missing ``break`` is a common bug in one's programs.
+
+To make a complete condition, you need to use :code:`default`, which indicates
+the default behavior. The ``is_vowel`` example can also be written as:
+
+.. code-block:: cpp
+
+    char c;
+    std::cin >> c;
+    bool is_vowel;
+    switch (c) {
+    case 'a':
+    case 'e':
+    case 'i':
+    case 'o':
+    case 'u':
+        is_vowel = true;
+        break; // missing this will make is_vowel always false
+    default:
+        is_vowel = false;
+        break;
+    }
+    if (is_vowel) {
+        // do something
+    }
+
+Play around with this :nblec_3:`switch`.
+
 .. _lec3_stm_loop:
 
 Loop Statements
 ---------------
+
+Loop statements allow you to repeatedly execute some statements that follow
+same/similar structure.
+
+The :code:`for` Loop
+++++++++++++++++++++
+
+The :code:`for` loop in `C++`_ has the syntactic form:
+
+.. code-block:: cpp
+
+    for (<init statement>; <condition statement>; <express>) {
+        // do work
+    }
+
+Each of the three blocks is separated by semicolon. The ``init statement``
+will be invoked once. Here is what happens under the hood:
+
+.. code-block:: cpp
+
+    for (<init statement>; <condition statement>; <express>) {
+        // if <init statement> has not been invoked, do it
+        // if <condition statement> fails, stop
+
+        // do work
+
+        // invoke <express>
+    }
+
+With for loop, we can perform some simple operations with arrays. For instance,
+you can initialize an array given the size is unknown.
+
+.. code-block:: cpp
+
+    int N;
+    std::cin >> N;
+    double *data = new double [N];
+    for (int i = 0; i < N; ++i) {
+        data[i] = 1.0;
+    }
+    delete [] data;
+
+Or accumulate the value:
+
+.. code-block:: cpp
+
+    double sum(0.0);
+    for (int i = 0; i < N; ++i) {
+        sum += data[i];
+    }
+    std::cout << "sum of data is: " << sum;
+    std::cout << "average is: " << sum/N; // assume N>0
+
+.. note::
+
+    The counter ``i`` in the examples above has **local scope**.
+
+You can, of course, define the counter out of the :code:`for` loop:
+
+.. code-block:: cpp
+    :linenos:
+
+    int i;
+    for (i = 0; i < N; ++i) {
+        // do work
+    }
+
+    // or
+
+    int j = 0;
+    for (; j < N; ++j) {
+        // do work
+    }
+
+    // or
+    int k = 0;
+    for (; k < N; ) {
+        // do work
+        ++k;
+    }
+
+In fact, all three blocks can be empty (like line 9 and 15), even at the same
+time (non-stopping loop), i.e.
+
+.. code-block:: cpp
+
+    for (;;) {}  // non-stopping...
+
+`C++`_ doesn't restrict that the loop counter must be integers. Pointers
+are another common counter.
+
+.. code-block:: cpp
+
+    for (double *data_ptr = data; data_ptr < data+N; ++data_ptr) {
+        *data_ptr = 1.0;
+    }
+
+is equivalent to the first example in ``for`` loop section.
+
+.. warning::
+
+    Looping over floating numbers is not recommended and should be avoided,
+    because it's expansive and problematic due to rounding errors.
+
+.. code-block:: cpp
+
+    // this is not preferred
+
+    const double h = 1./3;
+    double acc = 0.0;
+    for (; acc < 100.0; acc += h) {
+        // do work with acc
+    }
+
+    // do this instead
+
+    for (int i = 0; i < 300; ++i) {
+        acc += h;
+        // do work with acc
+    }
+
+.. _lec3_stm_loop_struct:
+
+Implement a Forward Linked List with :code:`struct`
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+In `C++`_, it's common that you want to group some data into a structure, in
+this case, you can use :code:`struct`. The syntactic form is:
+
+.. code-block:: cpp
+
+    struct StructName {
+        // any attributes
+    }; // <-- don't forget the semicolon
+
+For instance:
+
+.. code-block:: cpp
+
+    // you can represent a complex number by the following structure
+    struct ComplexNumber {
+        double real;
+        double imag;
+    };
+
+Now, ``ComplexNumber`` is a customized type that is defined by the user. To
+access an element/member in the structure, you need to use the accessing
+operator :code:`.`, i.e.
+
+.. code-block:: cpp
+
+    ComplexNumber a, b; // two complex number
+    a.real = 1.0;
+    a.imag = -1.0;
+    b.real = 2.0;
+    b.imag = 1.0;
+
+.. warning::
+
+    ``ComplexNumber`` is not a built-in type, so you should not expect
+    those arithmetic operations can be applied to it without any additional
+    efforts. However, both ``real`` and ``imag`` are just ``double``.
+
+You can, of course, define pointers that have base type ``ComplexNumber``.
+
+.. code-block:: cpp
+
+    ComplexNumber *ptr_a = &a, *ptr_b = &b;
+
+To access the elements/members of a structure through its pointers, the
+accessing operator :code:`->` is needed, i.e.
+
+.. code-block:: cpp
+
+    std::cout << "complex a=(" << ptr_a->real << ',' << ptr_a->imag << ")\n";
+    // this prints out a=(1.0,-1.0)
+
+Dynamic memory allocation is also applicable.
+
+.. code-block:: cpp
+
+    ComplexNumber *ptr = new ComplexNumber;
+    ptr->real = 1.0;
+    ptr->imag = 1.0;
+    delete ptr;
+
+    ComplexNumber *ptr_arr = new ComplexNumber[10];
+    for (int i = 0; i < 10; ++i) {
+        ptr_arr[i].real = 1.0;
+        ptr_arr[i].imag = 2.0;
+    }
+    delete [] ptr_arr;
+
+A linked list, like array, is another fundamental data structure. Unlike the
+array, which has contiguous memory layout, a linked list can stay in arbitrary
+locations in the memory, and each of its element (usually called node) points
+to each other through pointers. A common structure for a node of linked list:
+
+.. code-block:: cpp
+
+    struct Node {
+        int tag;
+        Node *next;
+    };
+
+Notice that :code:`next` points to the next node in the linked list. Let's
+implement a forward linked list with initialization, node insertion, and
+finalization.
+
+Now, open this :nblec_3:`for_fll`.
+
+The :code:`while` Loop
+++++++++++++++++++++++
+
+The :code:`do-while` Loop
++++++++++++++++++++++++++
 
 .. _lec3_stm_jump:
 
