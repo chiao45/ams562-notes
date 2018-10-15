@@ -315,8 +315,152 @@ Now, a more structured implementation of our
 :ref:`forward linked list example <lec3_stm_loop_struct>` can be found in
 :nblec_4:`func_fll`.
 
+.. _lec4_func_pass:
+
 Passing Arguments
 -----------------
+
+.. contents::
+   :local:
+   :backlinks: top
+
+A very good example to understand argument passing in `C++`_ is the following
+``swap`` function. A swapping operation is to exchange the contents between
+two objects. Let's take a look at the following pseudo code of swapping:
+
+.. code-block:: matlab
+
+    Inputs: obj1, obj2
+    Outputs: obj1 w/ value of obj2, and obj2 w/ value of obj1
+
+    function swap(obj1, obj2)
+    do
+        obj1 <-> obj2
+    end do
+
+Following the pseudo code and with the knowledge in high level programming
+languages, you probably simply come with a `C++`_ implementation:
+
+.. code-block:: cpp
+
+    void Swap1(int a, int b) {
+        const int temp = a;
+        a = b;
+        b = temp;
+    }
+
+However, this code will not work. The reason is simple, because both ``a`` and
+``b`` are copied locally inside the function thus having no effects to the
+actual inputted parameters.
+
+The Copy Property
++++++++++++++++++
+
+By default, all arguments are copied by their values thus resulting
+locally scoped variables. For instance, let's take a look at the following
+usage of our "wrong" swapping function.
+
+.. code-block:: cpp
+
+    int lhs = 1, rhs = 2;
+    Swap1(lhs, rhs);
+    std::cout << "after swapping, lhs="<< lhs << ", rhs=" << rhs << ".\n";
+
+During the calling of ``Swap1``, ``lhs`` and ``rhs`` are copied as local
+variables ``a`` and ``b``, so they have totally different memory addresses
+comparing to the original ``lhs`` and ``rhs``. Therefore, any operations
+performed on ``a`` and ``b`` have no effects to ``lhs`` and ``rhs``.
+
+Since we have just mentioned memory addresses, you probably can simply come
+up a proper implementation like:
+
+.. code-block:: cpp
+
+    void Swap2(int *a, int *b) {
+        const int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
+
+Now, the local copies of ``a`` and ``b`` are the pointers that still point to
+the input arguments. Therefore, the code above can successfully swap the
+contents.
+
+.. code-block:: cpp
+
+    int lhs = 1, rhs = 2;
+    Swap2(&lhs, &rhs); // be aware that we pass in memory addr
+    std::cout << "after swapping, lhs="<< lhs << ", rhs=" << rhs << ".\n";
+
+In programming, this copy property is referred as *pass by values* (PBV).
+Notice that with PBV, you duplicate each of the parameters thus doubling
+the memory usage.
+
+.. note:: `MATLAB`_, by default, has PBV property.
+
+Download and play around with :nblec_4:`swap`.
+
+*Pass by References* (PBR)
+++++++++++++++++++++++++++
+
+`C++`_ allows you pass parameters as their references. This is a convenient
+feature that allows one to write efficient code.
+
+.. code-block:: cpp
+
+    void Swap3(int &a, int &b) {
+        const int temp = a;
+        a = b;
+        b = a;
+    }
+
+In the code above, instead of creating copies, two references that bind to
+the input arguments are created. Recall that references are just alternative
+names of their corresponding objects, therefore, any modification will affect
+the original variables.
+
+.. tip::
+
+    Use :code:`const` reference with :code:`std::string` whenever possible.
+
+In general, the creation of an :code:`std::string` requires a dynamic memory
+allocation (because the size of the string is unknown) and a memory copying.
+As a result, passing :code:`std::string` by value can be very inefficient.
+
+.. code-block:: cpp
+
+    // first printing
+    void print1(std::string msg) {
+        std::cout << msg << '\n';
+    }
+
+    // second printing
+    void print2(const std::string &msg) {
+        std::cout << msg << '\n';
+    }
+
+    std::string msg = "hello world!";
+
+    for (int i = 0; i < 10000; ++i) {
+        print1(msg);
+        print2(msg);
+    }
+
+For the example above, without additional efforts, the first version requires
+more resources than the second one does due to 10000 additional times of
+dynamic memory allocation and data copying.
+
+.. tip::
+
+    Link we have learned in the :ref:`reference <lec2_ref>` section, the same
+    rule applies for using references with functions, i.e. use :code:`const`
+    whenever possible.
+
+PBV vs. PBR
+++++++++++++
+
+In general, if the
+
 
 Function Prototypes & Implementations
 --------------------------------------
