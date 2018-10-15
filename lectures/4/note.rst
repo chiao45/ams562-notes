@@ -459,8 +459,23 @@ dynamic memory allocation and data copying.
 PBV vs. PBR
 ++++++++++++
 
-In general, if the
+In general, if the data is too large so that copying it becomes the bottleneck
+of your programs, then you should switch to use PBR.
 
+Considering ``Swap2`` and ``Swap3``, both of them perform the swapping
+operation. The former requires copying the pointers, while references are
+passed for the latter. For this case, it's hard so say which one is preferred.
+
+.. tip::
+
+    People come converted from C programming usually prefer passing objects
+    by their memory addresses (pointers), because it's clear to them that the
+    objects will be modified. For native `C++`_ programmers, the latter is
+    usually used. But the drawback is that sometime people get confused about
+    the function interface, e.g. the interface is identical for ``Swap1`` and
+    ``Swap3``.
+
+.. _lec4_func_pro_impl:
 
 Function Prototypes & Implementations
 --------------------------------------
