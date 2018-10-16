@@ -320,10 +320,6 @@ Now, a more structured implementation of our
 Passing Arguments
 -----------------
 
-.. contents::
-   :local:
-   :backlinks: top
-
 A very good example to understand argument passing in `C++`_ is the following
 ``swap`` function. A swapping operation is to exchange the contents between
 two objects. Let's take a look at the following pseudo code of swapping:
@@ -479,3 +475,113 @@ passed for the latter. For this case, it's hard so say which one is preferred.
 
 Function Prototypes & Implementations
 --------------------------------------
+
+Declarations & Definitions of Variables
++++++++++++++++++++++++++++++++++++++++
+
+In :ref:`defining and initialing variables <lec1_define_init>`, we have learned
+how to define a variable, say :code:`int a;`. With this simple piece of code,
+two steps actually happen: 1) *declaring* ``a`` as an ``int``, and 2)
+*defining* it in the stack memory.
+
+We can, of course, explicitly separate these two steps by using the keyword
+``extern`` in `C++`_.
+
+.. code-block:: cpp
+
+    extern int a;  // declaration
+
+    int main() {
+        std::cout << "a=" << a;
+        return 0;
+    }
+
+    // define a
+    int a = 1;
+
+The separation of declarations and their corresponding definitions is
+significant in `C++`_ (as well as in C), because this allows us to structure
+libraries (packages) whose declarations go to the *header files* and
+definitions stay in the *source files*. These concepts will be taught in the
+future lecture.
+
+.. note::
+
+    Declarations can appear as many times as you want, but definitions must
+    be unique!
+
+.. code-block:: cpp
+
+    extern int a;  // declaration
+    extern int a;  // Ok
+    extern int a;  // No problem
+
+    int main() {
+        std::cout << "a=" << a;
+        return 0;
+    }
+
+    // define a
+    int a = 1;
+    // int a = 2; // ERROR, we already learned
+
+Constant variables can also be declared first.
+
+.. code-block:: cpp
+
+    // declaration
+    extern const int b;
+
+    int main() {
+        std::cout << "b=" << b;
+    }
+
+    const int b = 2; // define it, must be initialized
+
+
+"Declarations" of Functions
++++++++++++++++++++++++++++
+
+In `C++`_, a function's declaration is called *prototype*.
+
+.. code-block:: cpp
+
+    void myFunc(); // note that the semicolon indicates prototype
+    void myFunc(); // you can declare as many times as you want...
+
+Notice that :code:`extern` is optional.
+
+"Definitions" of Functions
+++++++++++++++++++++++++++
+
+A function's definition is called *implementation*.
+
+.. code-block:: cpp
+
+    void myFunc() {
+        std::cout << "calling myFunc\n";
+    }
+
+Notice that the implementation of a function is indicated by the scope
+opener (:code:`{`) and closer (:code:`}`).
+
+.. _lec4_func_adv:
+
+Advanced Topics
+===============
+
+.. contents::
+   :local:
+   :backlinks: top
+
+Function Types & Function Pointers
+----------------------------------
+
+Default Arguments
+-----------------
+
+Function Overloading
+--------------------
+
+Function Matching
+-----------------
