@@ -95,7 +95,7 @@ simply **call** the function ``chooseMethods``:
     std::cin >> flag;
     std::string method = chooseMethods(flag);
 
-In this way, everytime when you need to add a new method, there is only
+In this way, everytimes when you need to add a new method, there is only
 once place you need to worry about, i.e. the function ``chooseMethods``.
 
 Now, let's take a closer look at the function above, in which ``chooseMethods``
@@ -574,8 +574,33 @@ Advanced Topics
    :local:
    :backlinks: top
 
+.. _lec4_func_adv_type:
+
 Function Types & Function Pointers
 ----------------------------------
+
+Recall that `C++`_ is a static language, which all the variables must have
+their unique types. Unsurprisingly, functions are variables thus having their
+types.
+
+At the beginning the :ref:`the basis section <lec4_func_basis>`, we have
+learned that any functions are associated with a return type and a list of
+parameter arguments. Therefore, the type of a function can be determined by
+the return type and the parameter list.
+
+For instance, let's look at the simplest function, which takes nothing and
+returns empty.
+
+.. code-block:: cpp
+
+    void Empty() {}
+
+Its return type is ``void`` and input argument list is empty, or ``void``.
+So we can say that function ``Empty`` is determined by a function type that
+returns ``void`` and takes ``void``.
+
+Syntactically, the type of ``Empty`` is ``void(void)`` (C/`C++`_) or simply
+just ``void()`` (`C++`_).
 
 Default Arguments
 -----------------
