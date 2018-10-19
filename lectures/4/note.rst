@@ -600,13 +600,110 @@ So we can say that function ``Empty`` is determined by a function type that
 returns ``void`` and takes ``void``.
 
 Syntactically, the type of ``Empty`` is ``void(void)`` (C/`C++`_) or simply
-just ``void()`` (`C++`_).
+just ``void()`` (`C++`_). In general, the type of a function is given by the
+following syntax: :code:`return_type(type1, type2, ...)`, for example, the
+``Swap2`` function has type of :code:`void(int*, int*)`.
+
+.. note::
+
+    Function declaration (prototyping) is actually like any other declarations
+    thus having type and variable name. The different is that the variable name
+    is in the middle of the type, i.e. :code:`void Empty()`. In this case, it
+    is very similar to defining arrays, i.e. :code:`int array2[2]`, where
+    ``array2`` is the variable that has type of :code:`int[2]`.
+
+With a type precisely defined, we expect, of course, its pointer and reference
+defined as well. The syntax is as following:
+
+.. code-block:: cpp
+
+    void (*)(); // function pointer pointing to void()
+    void (&)(); // function reference referring to void()
+
+.. note::
+
+    Dereferencing function pointers will evaluate the function pointers
+    themselves.
+
+.. code-block:: cpp
+
+    int Identity(int a) {
+        return a;
+    }
+
+    // define the function pointer
+    int (*fun_ptr)(int);
+
+    int main() {
+        // explicit
+        fun_ptr = &Identity;
+        // implicit
+        fun_ptr = Identity;
+        // dereference evaluates back to pointer
+        fun_ptr = *Identity;
+        // or...
+        fun_ptr = ***Identity;
+    }
+
+The existence of function pointers is useful. because it allows us to pass
+functions to other functions as their parameter list's arguments.
+
+.. code-block:: cpp
+
+    void call(void (*func)()) {
+        func(); // call the function
+    }
+    void call2(int (*func)(int)) {
+        return func(2); // type is int(int)
+    }
+
+.. tip::
+
+    You should always use function pointers.
+
+.. note::
+
+    Function pointers are very old-school. We will learn using
+    *lambda calculus* and/or :code:`<functional>` in `C++`_ in the future.
 
 Default Arguments
 -----------------
 
+One of the important features in high level programming languages is to use the
+so-called *default arguments*.
+
+Default parameters are not allowed in the middle of a parameter list.
+
+.. code-block:: cpp
+
+    void doWork1(int a, int b, double tol = 1e-12, double sigma=2.0); // ok
+    void doWork2(int a, int b = 1, int c); // ERROR! b must appear after c
+
+With default parameters, you can use ``doWork1`` in the following ways:
+
+.. code-block:: cpp
+
+    doWork1(1, 2); // Ok, equiv to doWork1(1,2,1e-12,2.)
+    doWork1(1, 2, 1e-4); // Ok, overwrite tol
+    doWork1(1, 2, 1e-2,3.0); // Ok
+
+.. warning::
+
+    Default parameters can only be used for function prototyping, they are not
+    allowed in function definitions that are separated from the declarations.
+
+.. code-block:: cpp
+
+    int f1(int a = 1); // declaration
+    // int f1(int a = 1) { return a;} // ERROR!
+    int f1(int a) { return a; } // OK
+
+    int f2(int a = 1) { return a; } OK, declaration and definition together
+
 Function Overloading
 --------------------
+
+In `C++`_, function overloading is a
 
 Function Matching
 -----------------
