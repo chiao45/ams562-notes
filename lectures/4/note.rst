@@ -653,7 +653,7 @@ functions to other functions as their parameter list's arguments.
     void call(void (*func)()) {
         func(); // call the function
     }
-    void call2(int (*func)(int)) {
+    int call2(int (*func)(int)) {
         return func(2); // type is int(int)
     }
 
@@ -698,12 +698,107 @@ With default parameters, you can use ``doWork1`` in the following ways:
     // int f1(int a = 1) { return a;} // ERROR!
     int f1(int a) { return a; } // OK
 
-    int f2(int a = 1) { return a; } OK, declaration and definition together
+    int f2(int a = 1) { return a; } // OK, declaration and definition together
+
+The :nblec_4:`default` is a good example of showing using default argument with
+function as input argument for computing derivatives.
 
 Function Overloading
 --------------------
 
-In `C++`_, function overloading is a
+Recall that when you first learned about :ref:`types <lec1_types>` in `C++`_, I
+told you that the names of variables are unique. However, `C++`_ allows you to
+have multiple functions with same name under certain situations. This exception
+is, roughly speaking, called *function overloading*.
 
-Function Matching
------------------
+To be more precise, function overloading is: *functions that have the same name
+but different parameter lists and that appears in the same scope.*
+
+.. code-block:: cpp
+
+    // consider the following two interface for computing
+    // the mean of an array
+    double dmean (const int n, const double *array);
+    float smean (const int n, const float *array);
+
+    // C++ function overloading allows you to have a unified interface
+    // for them, i.g.
+    double mean(const int n, const double *array);
+    float mean(const int n, const float *array);
+
+.. note::
+
+    Overloaded functions cannot differ only in the return types!
+
+.. code-block:: cpp
+
+    // The following "overloading" of fun is not allowed!!
+    double fun();
+    float fun(); // This will throw error!
+
+The Beauty
+++++++++++
+
+C programming does not allow function overloading, this is very inconvenient. I
+like to use the absolute function as an example and this function is provided
+in both C and `C++`_ standard libraries.
+
+`C++`_ defines integer absolute value functions in :code:`<cstdlib>` and
+floating siblings under :code:`<cmath>`. For plain old C, they are defined in
+:code:`<stdlib.h>` and :code:`<math.h>`.
+
++-----+------------+------------+------------+------------+
+|     | ``float``  | ``double`` | ``int``    | ``long``   |
++=====+============+============+============+============+
+| C   | ``fabsf``  | ``fabs``   | ``abs``    | ``labs``   |
++-----+------------+------------+------------+------------+
+| C++ | ``abs``    | ``abs``    | ``abs``    | ``abs``    |
++-----+------------+------------+------------+------------+
+
+As you can see, in C, there is a uniquely defined ``abs`` function for each of
+the built-in type. With the power of function overloading, a unified interface
+``abs`` is defined for all built-in types.
+
+Take a look at the :nblec_4:`overload`.
+
+The Traps
++++++++++
+
+Function overloading is powerful, but you need to use it with special care. Now
+consider the following example.
+
+.. code-block:: cpp
+
+    void f(int a);
+    void f(int a, int b = 1);
+
+The functions above have different parameter list, so they are valid overloaded
+functions. But now, in the program we you try to call ``f``, we will run into
+problem.
+
+.. code-block:: cpp
+
+    int main() {
+        f(1); // which one????
+    }
+
+This is called *interface ambiguous error* in `C++`_ and the compiler will
+abort. However, the tricky part is that when you build the library with the two
+``f``, the compiler will not complain.
+
+Also, let's take a look at the example below.
+
+.. code-block:: cpp
+
+    void f(int a);
+    void f(const int a);
+
+It seems to you that ``int`` and ``const int`` are "two" types, but with
+regards of the function parameter, they are same. Therefore, the ``f`` above
+is not considered as function overloading, and if you try to define them
+separately, you will have multiple definitions error.
+
+Function Matching (optional section)
+------------------------------------
+
+.. todo:: Need to convert this part from my old lecture slides.
