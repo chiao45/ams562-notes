@@ -60,8 +60,8 @@ Lecture 4: Functions
 
    lectures/4/note
 
-Lecture 5: Classes
-==================
+Lecture 5: Packages & Makefiles
+===============================
 
 .. toctree::
    :maxdepth: 2
@@ -70,8 +70,8 @@ Lecture 5: Classes
 
    lectures/5/note
 
-Lecture 6: Makefiles & Headerfiles
-==================================
+Lecture 6: Classes
+==================
 
 .. toctree::
    :maxdepth: 2
