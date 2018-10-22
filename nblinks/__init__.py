@@ -34,8 +34,10 @@ __cpp_source__ = 'https://raw.githubusercontent.com/chiao45/ams562-notes/{}/prog
 _extlinks = {}
 __alias_pattern__ = 'nblec_%s'
 __cpp_src_pattern__ = 'cpplec_%s'
+__cpp_zip_pattern__ = 'ziplec_%s'
 __prefix__ = 'notebook '
 __cpp_prefix__ = 'program '
+__cppzip_prefix__ = 'archive '
 
 for lec in __lecs__:
     pat = __alias_pattern__ % lec
@@ -44,8 +46,12 @@ for lec in __lecs__:
     pat_cpp = __cpp_src_pattern__ % lec
     url_cpp = __cpp_source__ % lec
     url_cpp += '%s.cpp'
+    pat_zip = __cpp_zip_pattern__ % lec
+    url_zip = __cpp_source__ % lec
+    url_zip += '%s.zip'
     _extlinks[pat] = (url, __prefix__)
     _extlinks[pat_cpp] = (url_cpp, __cpp_prefix__)
+    _extlinks[pat_zip] = (url_zip, __cppzip_prefix__)
 
 # NOTE by default, when we write :nblec_?:`sample`, it will show as
 # notebook sample
