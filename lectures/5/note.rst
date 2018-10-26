@@ -164,3 +164,62 @@ is called *implicit linking*.
     must be unique!
 
 Take a look at the :ziplec_5:`diff`.
+
+Compilation & Linking
++++++++++++++++++++++
+
+Previously, I told you that when you compile a program, say ``demo.cpp``, you
+just simply type:
+
+.. code-block:: console
+
+    $ g++ demo.cpp
+    $ ./a.out
+
+What happens under the hood is that ``g++`` first compile ``demo.cpp`` into
+*machine code*, then link the *object file* with standard `C++`_ libraries.
+
+.. code-block:: console
+
+    $ g++ -c demo.cpp
+
+``-c`` indicates compilation and will yields so-called *object files*, i.e.
+:code:`*.o` files. The command above will generate an object file ``demo.o``.
+
+.. code-block:: console
+
+    $ g++ demo.o -o demo
+    $ ./demo
+
+The command above is linking that will link the machine code with `C++`_
+libraries and produce an executable ``demo``.
+
+The separation of compilation and linking is sometimes referred as *explicit
+linking* (the first style is *implicit*).
+
+If we have multiple files, we can still do implicit linking (as we have already
+shown in previous section).
+
+.. code-block:: console
+
+    $ g++ demo.cpp src1.cpp src2.cpp ... -o demo
+    $ ./demo
+
+The drawback is that it's not portable and will generate a huge executable.
+
+The preferred way is to do explicit linking.
+
+.. code-block:: console
+
+    $ g++ -c src1.cpp
+    $ g++ -c src2.cpp
+    ...
+    $ g++ demo.cpp src1.o src2.o ... -o demo
+    $ ./demo
+
+Makefiles
+=========
+
+For makefiles, let's learn with the following example:
+
+Take a look at the :ziplec_5:`make_eg`.
