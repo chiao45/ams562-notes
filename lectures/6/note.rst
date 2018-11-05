@@ -884,10 +884,10 @@ Put Everything Together
 The overall implement can be found in :nblec_6:`complex` including some
 usage codes.
 
-In addition, the archive contains the header ``ComplexNumber.hpp``, the source
-``ComplexNumber.cpp`` and a main program for testing. This is a good exercise
-for understanding how to separate declarations and implementations with
-classes.
+In addition, the :ziplec_6:`complex` contains the header ``ComplexNumber.hpp``,
+the source ``ComplexNumber.cpp`` and a main program for testing. This is a good
+exercise for you to understand how to separate declarations and implementations
+with classes.
 
 The ``Array`` Class
 +++++++++++++++++++
