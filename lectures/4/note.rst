@@ -703,6 +703,8 @@ With default parameters, you can use ``doWork1`` in the following ways:
 The :nblec_4:`default` is a good example of showing using default argument with
 function as input argument for computing derivatives.
 
+.. _lec4_func_adv_ov:
+
 Function Overloading
 --------------------
 
