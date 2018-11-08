@@ -892,6 +892,102 @@ with classes.
 The ``Array`` Class
 +++++++++++++++++++
 
+Another good starting example for understanding classes in `C++`_ is ``Array``,
+which involves a great usage of the destructor.
+
+.. code-block:: cpp
+
+    class Array {
+    private:
+        double *_data;   // memory
+        unsigned _size;  // length of the array
+    };
+
+You probably hate :ref:`dynamic memory management <lec2_dyn>` (same do I)! One
+obvious advantage of using the constructors and destructor of a class is that
+you just need to implement :code:`new/delete` and/or :code:`new[]/delete[]`
+once and `C++`_ will, then, automatically handle dynamic memory for you.
+
+Therefore, for the ``Array`` class, you need to allocate memory inside the
+constructors and relax it in the destructor, i.e. :code:`~Array::Array()`.
+Another important point is the copy constructor, be default, if you don't
+explicitly provide a copy constructor, then `C++`_ will assume the default
+behavior, i.e. copy ``_data`` and ``_size`` accordingly. However, what you may
+want is to implement a *deep copy*, so that whenever the copy constructor is
+invoked, it's guaranteed that a new ``_data`` is allocated and the values are
+copied.
+
+.. hint::
+
+    When you implement the copy constructor, ``new`` the ``_data`` based on
+    the size of ``other``. Then copying the values by using an
+    :ref:`iterative statement <lec3_stm_loop>`.
+
+Here you can find the interface I have defined for ``Array``.
+
+.. code-block:: cpp
+
+    class Array {
+    public:
+        // default constructor
+        Array();
+
+        // copy constructor
+        Array(const Array &other);
+
+        // constructor with array size and
+        explicit Array(unsigned n, double v = 0.0);
+
+        // we want to overwrite the implicit destructor
+        ~Array();
+
+        // get the length of array
+        unsigned size() const;
+
+        // get the data pointer of array
+        double *data();
+
+        // get read-only pointer of array
+        const double *data() const;
+
+        // given a rhs Array, copy its value
+        void copy(const Array &rhs);
+
+        // reference entry "index" of the data
+        double &at(unsigned index);
+
+        // read-only reference entry "index" of the data
+        const double &at(unsigned index) const;
+
+        // resize the array
+        void resize(unsigned new_size, bool prsv = true);
+
+        // some math functions
+        // L-2 norm, sum, maximum/minimum, and dot (inner) products
+        double norm() const;
+        double sum() const;
+        double max() const;
+        double min() const;
+        double dot(const Array &rhs) const;
+
+        // addition: this+rhs, return a new array
+        Array add(const Array &rhs) const;
+
+        // subtraction: this-rhs, return a new array
+        Array sub(const Array &rhs) const;
+
+        // do some terminal printing
+        void print() const;
+
+    private:
+        double *_data;   ///< data pointer
+        unsigned _size;  ///< length of the array
+    };
+
+Implement ``Array`` based on this interface and test your work. You can find
+a more detailed version in :ziplec_6:`array` and the corresponding
+:nblec_6:`array`.
+
 .. _lec6_class_adv:
 
 Advanced Topics of ``class``
@@ -900,3 +996,24 @@ Advanced Topics of ``class``
 .. contents::
    :local:
    :backlinks: top
+
+Operator Overloading
+--------------------
+
+Class Inheritance
+-----------------
+
+.. note::
+
+    This is an important concept for class-based OOP languages, but I will
+    **not** test you explicitly on this part in homework and project
+    assignments.
+
+Polymorphism
+------------
+
+.. note::
+
+    This is an important concept for class-based OOP languages, but I will
+    **not** test you explicitly on this part in homework and project
+    assignments.
