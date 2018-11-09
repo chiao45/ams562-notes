@@ -432,6 +432,8 @@ The ``this`` pointer has type of the object, in this case ``MyClass``.
     For those who come from `Python`_, ``this`` == ``self``. The only
     difference is that ``this`` is transparent.
 
+.. _lec6_class_bs_generic:
+
 Personally, I suggest that to better understanding member functions, let's
 Introduce a concept called *generic member function interface*. The ``method``
 function has a generic interface of:
@@ -620,6 +622,7 @@ the scope accessor operator :code:`::` (we have seen this in ``namespace``).
 
 .. warning:: ``explicit`` can only be specified inside class definition!
 
+.. _lec6_class_bs_cmplx:
 
 The ``ComplexNumber`` Class
 +++++++++++++++++++++++++++
@@ -999,6 +1002,209 @@ Advanced Topics of ``class``
 
 Operator Overloading
 --------------------
+
+``class`` in `C++`_ helps us to cluster the data and well organize the relation
+between our problems and the actual implementations. However, there are still
+techniques that can make our life even nicer.
+
+Recall the :ref:`complex numer <lec6_class_bs_cmplx>` example, while you read
+through the lecture notes, you probably have some of the following thinkings:
+
+1. "It would be really nice to have ``a = b`` instead of ``a.copy(b)``."
+2. "It would be great to write ``z3 = z1+z2`` instead of ``z3.copy(z1+z2)``."
+3. "I like :code:`std::cout << z1;` instead of doing ``z1.print()``."
+
+"But can I do this??"
+
+Yes! `C++`_ allows you to overload certain existing :ref:`operators <lec3_ops>`
+for your own classes.
+
+Unary Operators & Binary Operators
+++++++++++++++++++++++++++++++++++
+
+We have learned the concepts of *unary* and *binary* operators in
+:ref:`lecture 3 <lec3>`. Here, let's do a quick review.
+
+Unary operators are those applied as *prefix* of objects, e.g. not, negative,
+:ref:`address-of, deference <lec2_ptr>`, etc.
+
+Binary operators are those applied between *left-hand sides* and
+*right-hand side*, e.g. plus, minus, etc.
+
+Overload-able Operators
++++++++++++++++++++++++
+
+In `C++`_, most commonly used operators can be overloaded, such as ``+``,
+``-``, ``*``, ``/``, ``%``, ``=``, ``+=``, ``-=``, ``*=``, ``/=``, ``<<``,
+``>>``, ``&&``, ``||``, ``!``, ``++``, ``--``, ``()``, ``[]``, etc.
+
+For a complete list, please read `the cppreference web page <https://en.cppreference.com/w/cpp/language/operators>`_.
+
+Overloading Operators as Free and Member Functions
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. note::
+
+    Operators in `C++`_ are nothing but just functions. Therefore, overloading
+    operators is nothing but :ref:`overloading functions <lec4_func_adv_ov>`.
+
+Declaring an operator overloading is just like declaring free/member functions.
+
+For Unary Operators
+```````````````````
+
+Given a unary operator ``@``, i.e. ``@obj`` where ``obj`` is some object. To
+declare operator overloading of it as **free** function:
+
+.. code-block:: cpp
+
+    Obj operator @ (obj);
+
+as **member** function:
+
+.. code-block:: cpp
+
+    Obj operator @ ();
+
+For the latter case, recall the concept of
+:ref:`the generic interface <lec6_class_bs_generic>`, you know that ``this``
+is passed in thus, conceptually, equivalent to the free function version.
+
+For example, we want to declare the negative operator for class ``Obj``:
+
+.. code-block:: cpp
+
+    class Obj {
+    public:
+        // as member function, this is implicitly pass in
+        Obj operator-() const;
+    };
+    // as free function
+    Obj operator-(const Obj &obj);
+
+    // in main.cpp
+    Obj a;
+    // you can do -a
+    -a;
+    // or use as a function style
+    a.operator-(); // if defined as member method
+    operator-(a); // if defined as free method
+
+For Binary Operators
+````````````````````
+
+Given a binary operator ``@``, i.e. ``lhs@rhs`` where ``lhs`` and ``rhs`` are
+some objects (with potentially different types). To declare operator
+overloading of it as a **free** function:
+
+.. code-block:: cpp
+
+    Obj operator @ (lhs, rhs)
+
+as a **member** function:
+
+.. code-block:: cpp
+
+    Obj operator @ (rhs)
+
+For the latter case, ``this`` is treated as the left-hand side.
+
+For instance, to add addition operator ``+`` to ``Obj``, we need:
+
+.. code-block:: cpp
+
+    class Obj {
+    public:
+        // as member function
+        Obj operator+(const Obj &rhs) const; // const member function!
+    };
+    // as free function
+    Obj operator+(const Obj &lhs, const &Obj &rhs);
+
+    // in main function
+    Obj lhs, rhs;
+    // neat way
+    lhs+rhs;
+    // or as a function fashion
+    lhs.operator+(rhs); // member
+    operator+(lhs, rhs); // free
+
+See the :cpplec_6:`binary_vs_unary` for a better understanding.
+
+Assignment & Compound Assignments
+`````````````````````````````````
+
+For :ref:`assignment and compound assignment operators <lec3_assign_ops>`, they
+are considered as binary operators and **MUST** be overloaded as member
+methods. There are, in general, two ways to implement it:
+
+**return void**:
+
+.. code-block:: cpp
+
+    class Obj {
+    public:
+        // assignment
+        void operator=(const Obj &obj) {
+            // typically, copy the data of obj
+        }
+    };
+
+vs. **return reference**:
+
+.. code-block:: cpp
+
+    class Obj {
+    public:
+        // assignment
+        Obj &operator=(const Obj &obj) {
+            // typically, copy the data of obj
+            return *this; // and return the reference of "myself"
+        }
+    };
+
+For most assignment operations, there is no difference between this two
+implementations, i.e.
+
+.. code-block:: cpp
+
+    Obj a, b;
+    a = b;
+    // or
+    a.operator=(b);
+
+However, the latter enables so-called *chain reaction* of assignment operators:
+
+.. code-block:: cpp
+
+    Obj a, b, c;
+
+    // we want to copy c to both a and b
+    // for return void version, we have to do it one by one
+    a = c;
+    b = c;
+    // the reason is that
+    a.operator=(c); // void is returned
+
+    // for reference return, the chain reaction is
+    a = b = c;
+    // neat right? What happens under the hood is that
+    a.operator=(b.operator=(c));
+    // b.operator=(c) also returns an Obj that can be kept passing in to
+    // a's operator=
+
+.. note::
+
+    The chain reaction is enabled for built-in types, e.g. ``a=b=c=d=1`` given
+    integers ``a``, ``b``, ``c`` and ``d``.
+
+See the :nblec_6:`chain_assign` for more.
+
+Output/Input Operators Overloading
+``````````````````````````````````
+
+Reworked Version of ``ComplexNumber``
++++++++++++++++++++++++++++++++++++++
 
 Class Inheritance
 -----------------
