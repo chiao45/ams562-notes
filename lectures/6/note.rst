@@ -1200,8 +1200,56 @@ However, the latter enables so-called *chain reaction* of assignment operators:
 
 See the :nblec_6:`chain_assign` for more.
 
+.. _lec6_adv_class_io:
+
 Output/Input Operators Overloading
 ``````````````````````````````````
+
+In :ref:`this first lecture <lec1>`, we have learned the how to deal with
+:ref:`standard I/O <lec1_io>`. Good news is that we can overload the input
+operator :code:`>>` and output operator :code:`<<`. **But these operators must
+be overloaded as free functions.**
+
+The syntax to overload output operator is:
+
+.. code-block:: cpp
+
+    #include <iostream>
+
+    std::ostream & operator<<(std::ostream &out, const Obj &obj);
+
+As you can see, the interface takes a *generic* output streamer,
+i.e. ``out`` with type :code:`std::ostream`, and outputs its reference. So that
+you can enable the chain reaction of the output operator.
+
+To implement it, you basically need to write contents to the output streamer
+and return it at the end.
+
+.. code-block:: cpp
+
+    std::ostream & operator<<(std::ostream &out, const Obj &obj) {
+        out << "obj";
+        return out; // must return!
+    }
+
+    // in main program
+    Obj obj1, obj2;
+    std::cout << obj1 << ' ' << obj2;
+    // this prints "obj obj" w/o quotations
+
+The exact same logic can be applied on the input operator ``>>``. The syntax is
+
+.. code-block:: cpp
+
+    std::istream & operator>>(std::istream &in, Obj &obj) {
+        // write things to input streamer
+        // in >> ...
+        return in;
+    }
+
+Take a look at :cpplec_6:`ovld_io`.
+
+Where :code:`std::istream` is the *generic* input stream type.
 
 Reworked Version of ``ComplexNumber``
 +++++++++++++++++++++++++++++++++++++
