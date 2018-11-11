@@ -1247,12 +1247,230 @@ The exact same logic can be applied on the input operator ``>>``. The syntax is
         return in;
     }
 
+Where :code:`std::istream` is the *generic* input stream type.
+
 Take a look at :cpplec_6:`ovld_io`.
 
-Where :code:`std::istream` is the *generic* input stream type.
+Overloading :code:`[]` & :code:`()`
+```````````````````````````````````
+
+In practice, these two operators are commonly overloaded. The former can be
+considered as the "accessing" operator and the latter can be used as
+"callable" operator.
+
+.. note:: These two operators must be overloaded as member methods.
+
+Essentially, these two operators enable your classes by :code:`obj[...]` and
+:code:`obj(...)`. One major difference is that the former can only accept
+a **single** input parameter, while unlimited number of parameters can be used
+in overloading :code:`()`.
+
+.. note::
+
+    The reason I like to reference :code:`()` as "callable" operator is that it
+    allows you to make your objects behave like functions. This is so-called
+    *functors* in `C++`_, which we will cover in the future.
+
+.. code-block:: cpp
+
+    // create a 2by2 matrix
+    class Matrix22 {
+    public:
+    Matrix22() {
+        for (int i = 0; i < 4; ++i)
+            _data[i] = 0.0;
+    }
+
+    // overload []
+    double &operator[](int i) { return _data[i]; }
+    const double &operator[](int i) const { return _data[i]; }
+
+    // overload ()
+    double &operator()(int row, int col) { return _data[2*row+col]; }
+    const double &operator()(int row, int col) const {
+        return _data[2*row+col];
+    }
+    private:
+    // store in single array
+    // 0:->(0,0)
+    // 1:->(0,1)
+    // 2:->(1,0)
+    // 3:->(1,1)
+    double _data[4];
+    };
+
+Now, to use the ``Matrix22`` object, we can write:
+
+.. code-block:: cpp
+
+    Matrix22 mat;
+    mat[0] = 1.0; //  assign the first element
+    std::cout << "mat(0,0)=" << mat[0] << '\n';
+    // the following style is extremely friendly to mathematicians
+    // to under what we are doing.
+    mat(1,1) = 2.0; // assign the last element
+    std::cout << "mat(1,1)=" << mat(1,1) << '\n';
+
+    // it's equiv to write
+    mat.operator[](0) = 1;
+    // and
+    mat.operator()(1,1) = 2;
 
 Reworked Version of ``ComplexNumber``
 +++++++++++++++++++++++++++++++++++++
+
+With the power of operator overloading, let's redo our ``ComplexNumber``
+example. As what we did before, let's first structure out what functionalities
+we need and decide what operators we want.
+
+1. all arithmetic operations,
+2. some assignment functionalities,
+3. equal and not equal comparisons, and
+4. enabling standard I/O operators.
+
+We will extend these functionalities to ``ComplexNumber`` thus reviewing
+:ref:`the interface <lec6_class_bs_cmplx>` if necessary.
+
+Arithmetic Operations
+`````````````````````
+
+Given complex numbers :math:`z_1` and :math:`z_2`, and their corresponding
+*Euler formers*, their product is defined as
+
+.. math::
+
+    z_1z_2&=(x_1x_2-y_1y_2)+(x_1y_2+y_1x_2)i
+
+And their division, i.e. :math:`\frac{z_1}{z_2}`, is given by:
+
+.. math::
+
+    \frac{z_1}{z_2}&=\frac{z_1\bar{z_2}}{\left\vert z_2\right\vert^2}
+
+Where :math:`\bar{z}` and :math:`\left\vert z\right\vert` are conjugate and
+modulus, resp, of :math:`z`.
+
+.. code-block:: cpp
+    :linenos:
+
+    // overload as free functions
+
+    // addition and subtraction, directly calling the existing member
+    // functions add/sub
+    ComplexNumber operator+(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        return lhs.add(rhs);
+    }
+    ComplexNumber operator-(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        return lhs.sub(rhs);
+    }
+
+    // product
+    ComplexNumber operator*(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        // compute real part
+        const double real = lhs.real()*rhs.real()-lhs.imag()*rhs.imag();
+        // compute imag part
+        const double imag = lhs.real()*rhs.imag()+lhs.imag()*rhs.real();
+        return ComplexNumber(real, imag);
+    }
+
+    // division, this is important
+    ComplexNumber operator/(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        // compute lhs*conj(rhs) by calling * operator defined above
+        const ComplexNumber top = lhs*rhs.conj();
+        // compute bottom by calling modulus and square it
+        double bot = rhs.modulus();
+        // note, calling rhs.modulus() twice is expensive to do
+        bot = bot*bot;
+        // inverse it
+        const double ibot = 1./bot;
+        return top*ibot; // question, this is valid, but why?
+    }
+
+**Remark**: as you can see, the division is implemented by fully utilizing
+what we have already implemented. Of course, you can expand the formula and
+manually compute the real and imaginary parts (like the multiplication).
+In line 24, the operator ``*``, which is defined in line 13) is called, and it
+is called again in line 31 because implicitly casting from :code:`double` to
+``ComplexNumber`` is allowed!
+
+Assignments
+```````````
+
+Notice that assignments operators, including compound types, must be overloaded
+as member functions.
+
+.. code-block:: cpp
+    :linenos:
+
+    class ComplexNumber {
+    public:
+        // assignment
+        ComplexNumber &operator=(const ComplexNumber &rhs) {
+            copy(rhs);
+            return *this; // don't forget this!
+        }
+        // plus assign
+        ComplexNumber &operator+=(const ComplexNumber &rhs) {
+            _real += rhs._real;
+            _imag += rhs._imag;
+            return *this;
+        }
+        // minus assign
+        ComplexNumber &operator-=(const ComplexNumber &rhs) {
+            _real -= rhs._real;
+            _imag -= rhs._imag;
+            return *this;
+        }
+    };
+
+**Remark**: by :code:`return *this`, the chain reaction is enabled.
+
+Comparisons
+```````````
+
+We will overload equal, i.e. ``==``, and not equal to, i.e. ``!=``, as free
+functions.
+
+.. code-block:: cpp
+    :linenos:
+
+    bool operator==(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        return lhs.real() == rhs.real() && lhs.imag() == rhs.imag();
+    }
+    bool operator!=(const ComplexNumber &lhs, const ComplexNumber &rhs) {
+        // return lhs.real() != rhs.real() || lhs.imag() != rhs.imag();
+        // neat way
+        return !(lhs == rhs);
+    }
+
+**Remark**: in line 7 above, the equal to operator that is defined in line 1 is
+first called and returns a boolean value. We, then, apply the not operator
+to the logical value in order to get its opposite, i.e. not equal to.
+
+I/O Overloading
+```````````````
+
+Note that I/O must be overloaded as free functions. In general,
+:code:`<iostream>` or equivalent headers should be included.
+
+.. code-block:: cpp
+
+    std::ostream & operator<<(std::ostream & out, const ComplexNumber &z) {
+        // format is "real imag " w/o quotations
+        out << z.real() << ' ' << z.imag() << ' ';
+        return out;
+    }
+    std::istream & operator>>(std::istream & in, ComplexNumber &z) {
+        // load real then imag
+        in >> z.real() >> z.imag();
+        return in;
+    }
+
+Summary
+```````
+
+Putting everything together, please take a look at our new ``ComplexNumber`` by
+downloading the :ziplec_6:`complex_new` file.
 
 Class Inheritance
 -----------------
