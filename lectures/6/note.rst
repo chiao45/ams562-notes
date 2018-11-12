@@ -94,6 +94,8 @@ However, this will not work, the following error will be thrown:
 The reason is that we don't have "permission" to access the ``name`` member in
 ``Student`` due to "incorrect" *accessing specifiers*.
 
+.. _lec6_class_basis_access:
+
 In `C++`_, each content of a ``class`` object is associated with one of the
 following accessing specifiers: ``public``, ``private``, and ``protected``
 (future).
@@ -1472,14 +1474,208 @@ Summary
 Putting everything together, please take a look at our new ``ComplexNumber`` by
 downloading the :ziplec_6:`complex_new` file.
 
+.. _lec6_class_adv_inh:
+
 Class Inheritance
 -----------------
 
+One of the important concept of class-based OOP language is the so-called
+*class inheritance* relationships. This technique is typically used in the case
+where two (or more) class types have a natural *child* and *parent* relation.
+
+One of the main purpose of class inheritance is
+*sharing common implementations*. Note that a parent can have multiple
+children. To declare a class inheritance, we need to user inheritance symbol
+``:``.
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 8-9
+
+    class Base {
+    public:
+        void base_method() const {
+            std::cout << "base method\n";
+        }
+    };
+
+    class Derived1 : public Base {};
+    class Derived2 : public Base {};
+
+Guess what, ``base_method`` is automatically enabled in both ``Derived1`` and
+``Derived2``.
+
+The ``public`` inheritance enables all the public members in ``Base`` and treat
+them as ``public`` members in the derived classes.
+
 .. note::
 
-    This is an important concept for class-based OOP languages, but I will
-    **not** test you explicitly on this part in homework and project
-    assignments.
+    Of course, there are other types of inheritances, but for this class, we
+    only focus on ``public`` inheritance, which is the most commonly used one.
+
+.. code-block:: cpp
+
+    Derived1 d1;
+    d1.base_method();
+    Derived2 d2;
+    d2.base_method();
+
+Also, derived types can be passed as function arguments where the base type is
+needed. i.e.
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 10-11
+
+    void call_base(const Base &obj) {
+        // because base_method is constant member function
+        // we can call it here.
+        obj.base_method();
+    }
+
+    // in main.cpp
+    Derived1 d1;
+    Derived2 d2;
+    call_base(d1);
+    call_base(d2);
+
+Accessing ``Base``'s Non-public Members
++++++++++++++++++++++++++++++++++++++++
+
+Let's take a look at the following example:
+
+.. code-block:: cpp
+
+    class Parent {
+    private:
+        int _bank_acc;
+    };
+
+We define a ``Parent`` class that holds a ``_bank_acc`` member variable, now
+you may think in order to get the information of the bank account, let's
+define (or ... ;) pretend) to be a child of it. You probably think something
+like this:
+
+.. code-block:: cpp
+
+    class Child : public Parent {
+    public:
+        int get_bank_acc() const {
+            return _bank_acc;
+        }
+    };
+
+However, this does not work! **Derived classes cannot access private members
+of the base class.**
+
+.. important::
+
+    Unlike Java, C#, and `Python`_, the OO inheritance in `C++`_ is very
+    restricted and this, sometimes, can be a nice thing to have.
+
+Clearly, ``private`` is not a right permission to have in order to allow
+child classes to access non-public members. In this case, as
+we :ref:`already mentioned <lec6_class_basis_access>` before, you need to use
+``protected`` access specifier.
+
+.. code-block:: cpp
+
+    class Parent {
+    protected:
+        int _bank_acc;
+    };
+
+Now, your "parent" allows you to his/her bank account ;)
+
+Initializing Member Attributes
+++++++++++++++++++++++++++++++
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 3, 5
+
+    class MyInt {
+    public:
+        MyInt () { _v = 0; }
+    private:
+        int _v;
+    };
+
+Now, let's look at the simply class example above, especially line 3 and 5.
+From line 3, we know that ``_v`` is already defined, otherwise, we cannot use
+it. The question is **whether line 5 defines it?** The answer is **NO**, line
+5 just simply **declares** that ``MyInt`` will hold an ``int``. So where is
+``_v`` actually got defined?
+
+It's got defined inside the constructor and this behavior is implicit. To
+explicitly define the data attributes, we need to use the *initializer list*.
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 3
+
+    class MyInt {
+    public:
+        MyInt() : _v(0) {}
+    private:
+        int _v;
+    };
+
+In this case, ``_v`` is calling the constructor ``int(int)`` in order to
+define it with value 0.
+
+Let's look at a more informative example, since ``int`` is too simple.
+
+.. code-block:: cpp
+
+    class Object {
+    public:
+        Object() {
+            std::cout << "default constructor\n";
+        }
+        Object(int a) {
+            std::cout << "constructor with a=" << a << '\n';
+        }
+        Object(const std::string &str) {
+            std::cout << "constructor with str: " << str << '\n';
+        }
+    };
+
+Now, another family of objects ``Holder?``; each of them holds an ``Object``
+instance.
+
+.. code-block:: cpp
+
+    // holder1 simply do nothing
+    class Holder1 {
+    public:
+        Holder1() {}
+    private:
+        Object _obj;
+    };
+
+    // holder2 defines _obj with another constructor
+    class Holder2 {
+    public:
+        Holder2() : _obj(1) {}
+    private:
+        Object _obj;
+    };
+
+    // holder3 defines _obj with the string constructor
+    class Holder3 {
+    public:
+        Holder3() : _obj("ams562") {}
+    private:
+        Object _obj;
+    };
+
+To see the results, check this :nblec_6:`init_list`.
+
+The ``Guest`` Example
++++++++++++++++++++++
+
+.. _lec6_class_adv_poly:
 
 Polymorphism
 ------------
