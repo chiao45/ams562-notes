@@ -1675,6 +1675,75 @@ To see the results, check this :nblec_6:`init_list`.
 The ``Guest`` Example
 +++++++++++++++++++++
 
+Let's consider the following example, a hotel wants to implement a simple
+program that is able to computes the bill for customers given how many nights
+they stay. The bill contains two parts 1) cost per night and 2) cost per
+breakfast. By default, the prices are $150 and $20.
+
+.. code-block:: cpp
+
+    class Guest {
+    public:
+        Guest(const std::string &name,
+              const int nights) :
+            _name(name),
+            _nights(nights),
+            _pri1(150.0f),
+            _pri2(20.0f) {
+            _type = "normal";
+        }
+
+        // get name
+        const std::string &name() const { return _name; }
+
+        // get how many nights this person has stayed
+        int nights() const { return _nights; }
+
+        // compute bill
+        float compute_bill() const { return (_pri1+_pri2)*_nights; }
+
+        const std::string &type() const { return _type; }
+    private:
+        std::string _name;
+    protected:
+        std::string _type; // customer type
+        int _nights; // how many nights
+        float _pri1; // cost per day
+        float _pri2; // cost per meal
+    };
+
+Now, we can use the following example:
+
+.. code-block:: cpp
+
+    Guest g1("Foo Bar", 10);
+    std::cout << "cost for g1 is $" << g1.compute_bill();
+
+Of course, you may want to offer discounts for membership owners, say VIPs, who
+are still considered as ``Guest``. For VIPs, your policy is $120 per day and
+$10 for meals.
+
+.. code-block:: cpp
+
+    class VIP : public Guest {
+    public:
+        // call guest constructor in initializer list
+        VIP(const std::string &name, const int nights) :
+            Guest(name, nights) {
+            // now pri1 = 150 and pri2 = 20
+            // change them to the right ones for vip
+            _pri1 = 120.0f;
+            _pri2 = 10.0f;
+            _type = "vip";
+        }
+    };
+
+    // in main program
+    VIP g2("Egg Spam", 20);
+    std::cout << "cost for g2 is $" << g2.compute_bill();
+
+Try this :nblec_6:`guest`.
+
 .. _lec6_class_adv_poly:
 
 Polymorphism
