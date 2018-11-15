@@ -1754,3 +1754,143 @@ Polymorphism
     This is an important concept for class-based OOP languages, but I will
     **not** test you explicitly on this part in homework and project
     assignments.
+
+Let's keep considering the ``Guest`` example, assume that we now want to
+create a special group of customers who take the advantage of the time limited
+online offer. For these customers, the rule is that the total cost per day is
+$100 including everything; moreover, an additional 10% discount will be
+applied. Let's name this customer group to be ``SpecialGuest``.
+
+Of course, the key difference is the ``compute_bill`` function, and you may
+play tricks like assigning ``_pri2`` to 0 and ``_pri1`` to 90%x$100. But the
+problem is that the code will become unreadable and to specialized.
+
+A clean solution would be rewrite ``compute_bill``.
+
+.. code-block:: cpp
+
+    class SpecialGuest : public Guest {
+    public:
+    // call guest constructor in initializer list
+    SpecialGuest(const std::string &name, const int nights) :
+        Guest(name, nights) {
+        // we don't care of _pri1 and _pri2 because we
+        // will rewrite the function compute_bill
+        _type = "special";
+    }
+
+    // rewrite compute bill with the special rule
+    float compute_bill() const { return 90.0*_nights; }
+    };
+
+Now, let's :ref:`overload the output operator <lec6_adv_class_io>` in order to
+have a clean interface:
+
+.. code-block:: cpp
+
+    std::ostream & operator << (std::ostream &out, const Guest &g) {
+        std::cout <<
+            g.name() << ", " <<
+            g.type() << ", " <<
+            g.nights() << ", total: $" <<
+            g.compute_bill() << '\n';
+    }
+
+In the main program, you have a ``SpecialGuest`` named Joe,
+
+.. code-block:: cpp
+
+    SpecialGuest g("Joe", 10);
+    std::cout << g;
+
+What you expected is probably:
+
+.. code-block:: console
+
+    Jeo, special, 10, total: $900.0
+
+But what you get is actually:
+
+.. code-block:: console
+
+    Jeo, special, 10, total: $1700.0
+
+So Joe is not a special guest! What is the problem?
+
+The issue is that the output operator (or in general any functions) takes
+``Guest`` as input type. Therefore, when you call ``compute_bill`` inside
+the function body, i.e. the code block above, the actual version you invoke
+is the one of ``Guest``.
+
+To overcome this limitation, you need to use the so-called *virtual functions*
+or utilize the *polymorphism* technique in `C++`_. This requires us to rework
+the ``Guest``.
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 19
+
+    class Guest {
+    public:
+        Guest(const std::string &name,
+              const int nights) :
+            _name(name),
+            _nights(nights),
+            _pri1(150.0f),
+            _pri2(20.0f) {
+            _type = "normal";
+        }
+
+        // get name
+        const std::string &name() const { return _name; }
+
+        // get how many nights this person has stayed
+        int nights() const { return _nights; }
+
+        // compute bill
+        virtual float compute_bill() const { return (_pri1+_pri2)*_nights; }
+
+        const std::string &type() const { return _type; }
+    private:
+        std::string _name;
+    protected:
+        std::string _type; // customer type
+        int _nights; // how many nights
+        float _pri1; // cost per day
+        float _pri2; // cost per meal
+    };
+
+In line 19, the keyword ``virtual`` is to indicate that member function
+``compute_bill`` can, potentially, be *ovrride* in its child classes.
+
+Now, in the ``SpecialGuest``, we can have:
+
+.. code-block:: cpp
+    :linenos:
+    :emphasize-lines: 12-14
+
+    class SpecialGuest : public Guest {
+    public:
+    // call guest constructor in initializer list
+    SpecialGuest(const std::string &name, const int nights) :
+        Guest(name, nights) {
+        // we don't care of _pri1 and _pri2 because we
+        // will rewrite the function compute_bill
+        _type = "special";
+    }
+
+    // rewrite compute bill with the special rule
+    virtual float compute_bill() const override {
+        return 90.0*_nights;
+    }
+    };
+
+.. note::
+
+    ``virtual`` specifier in derived classes is not needed, but it provides
+    a clearer interface. ``override`` can only be used in derived classes and
+    it's also optional, but having it makes the code clearer.
+
+If you ``cout`` Joe this time, you will get the desired output. In practice,
+polymorphism is an extremely useful technique. But since it involves many
+advanced understanding of `C++`_, I will not go into details for this class.
