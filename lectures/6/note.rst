@@ -1318,6 +1318,8 @@ Now, to use the ``Matrix22`` object, we can write:
     // and
     mat.operator()(1,1) = 2;
 
+.. _lec6_adv_class_cmplx:
+
 Reworked Version of ``ComplexNumber``
 +++++++++++++++++++++++++++++++++++++
 
