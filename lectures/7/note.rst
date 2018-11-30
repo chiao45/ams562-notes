@@ -323,5 +323,14 @@ overloaded with constant member functions as well.
 Algorithms
 ++++++++++
 
+Based on standardizing how to traverse containers, STL also implements a
+collection of algorithms such as ``copy``, ``fill``, search, ``for_each``,
+``max/min``, ``partition``, ``sort``, binary search, etc. Again, use these
+whenever possible to reduce your developing time and increase the portability
+and robustness of your code.
+
 How To Get Start With STL
 -------------------------
+
+With what we have learned so far, it's great to check the online references
+for the APIs of STL. The one I use is `cppreference <https://en.cppreference.com/w/>`_.
