@@ -110,17 +110,7 @@ Lecture 9: Iterators & :code:`<algorithm>`
 
    lectures/9/note
 
-Lecture 10: Smart Pointers
-==========================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Lecture 10
-   :name: master_lec10
-
-   lectures/10/note
-
-Lecture 11: Storing ``matrix`` in Scientific Computing---``LAPACK`` & ``Eigen``
+Lecture 10: Storing ``matrix`` in Scientific Computing---``LAPACK`` & ``Eigen``
 ===============================================================================
 
 .. toctree::
