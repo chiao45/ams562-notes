@@ -7,3 +7,4 @@ build
 .vscode
 .pylintrc
 .ipynb_checkpoints
+a.out
