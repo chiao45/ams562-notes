@@ -110,15 +110,15 @@ Lecture 9: Iterators & :code:`<algorithm>`
 
    lectures/9/note
 
-Lecture 10: Storing ``matrix`` in Scientific Computing---``LAPACK`` & ``Eigen``
-===============================================================================
+Lecture 10: Storing ``matrix`` in Scientific Computing---``LAPACK``
+====================================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Lecture 11
-   :name: master_lec11
+   :name: master_lec10
 
-   lectures/11/note
+   lectures/10/note
 
 Case Studies
 ============

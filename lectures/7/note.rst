@@ -233,6 +233,8 @@ Some sorted data structures are implemented as well.
 
 **We will mainly focus on std::vector, since its the commonly used one in scientific programming.**
 
+.. _lec7_itr:
+
 Iterators
 +++++++++
 
