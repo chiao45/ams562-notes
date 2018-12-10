@@ -100,8 +100,8 @@ Lecture 8: Using :code:`<vector>`
 
    lectures/8/note
 
-Lecture 9: Iterators & :code:`<algorithm>`
-==========================================
+Lecture 9: :code:`<algorithm>`
+==============================
 
 .. toctree::
    :maxdepth: 2
