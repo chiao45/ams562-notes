@@ -162,7 +162,7 @@ makes the codes straightforward and easy to read.
 **Understanding iterators is important** since iterators are not only used in
 looping.
 
-Checkout the :nblec_7:`vector_intro`.
+Checkout the :nblec_8:`vector_intro`.
 
 Adding/Removing Elements
 ------------------------
@@ -179,7 +179,7 @@ dynamically; this includes the following operations:
 To insert or remove elements, you need to pass in the iterators that indicate
 the positions.
 
-See this :nblec_7:`vector_elemmani`.
+See this :nblec_8:`vector_elemmani`.
 
 Using Vector Efficiently
 ------------------------
@@ -207,7 +207,7 @@ actual storage is in-used.
 The capacity information can be queried by the member function
 :code:`std::vector::capacity`.
 
-Please look at the :nblec_7:`vector_size`, which explains the size and capacity
+Please look at the :nblec_8:`vector_size`, which explains the size and capacity
 in detail.
 
 For problem sizes are known, then allocating enough storage at the beginning
