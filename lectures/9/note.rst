@@ -174,11 +174,103 @@ Their corresponding interfaces:
 
 .. code-block:: cpp
 
+    bool unary_boolean(const T &);
+    bool binary_boolean(const T &, const  T&);
+    void unary_proc(T &); // NOTE that T here can be constant types
 
-    
+A perfect example would be using :code:`std::count_if`. Here, assuming I
+have a students homework scores and I want to count the total number of
+students whose scores are above 50.
+
+.. code-block:: cpp
+
+    // define unary operation, in this case, we can use function
+    bool above50(const float score) { return score > 50.0f; }
+
+    std::vector<float> scores = {...}; // fill in the scores
+    const int counts = std::count_if(scores.begin(), scores.end(), above50);
+    std::cout << "total # > 50 is " << counts;
+
+The binary boolean operations can be used in :code:`std::sort`. The default
+behavior is that given element ``a`` and ``b``, ``a`` goes before ``b`` if
+``a`` is less (operator <) than ``b``. This can be overwrite by providing a
+customized binary boolean operation with left-hand and right-hand sides, say
+``lhs`` and ``rhs``, resp. Then ``lhs`` goes before ``rhs`` in the sorted order
+if the binary operation returns ``true``.
+
+.. code-block:: cpp
+
+    // define the function
+    bool greater(const int lhs, const int rhs) { return lhs > rhs; }
+
+    // under main function
+    // generate a random array
+    std::vector<int> v = {...};
+
+    std::sort(v.begin(), v.end(), greater);
+    // now v is in descending order
+
+.. note::
+
+    The binary boolean operation must meet the requirement that if
+    ``comp(lhs,rhs)`` returns ``true``, then ``comp(rhs,lhs)`` must be
+    ``false``.
 
 Functors
 --------
+
+There are many drawbacks of using traditional functions as operations inside
+algorithm routines. One of the obvious one is that it's not easy to capture
+external data into the function.
+
+For example, for the counting averaging example, what if we want to count
+students store that is greater than :math:`\alpha`, where :math:`\alpha` can't
+be determined beforehand?
+
+.. code-block:: cpp
+
+    bool greater2(const float score) {
+    // we cannot add alpha into the function interface, because that will
+    // change the API thus resulting a non-unary operation
+        return score > alpha; // how to plug in alpha???
+    }
+
+The problem can be easily solved by using the so-called *functors* in `C++`_.
+*Functors* are function objects that overload the :code:`operator()`, so that
+it mimics the behavior of functions.
+
+.. code-block:: cpp
+    :emphasize-lines: 8-11
+
+    class AboveAvg {
+    public: // must be public!
+        // don't allow default construction
+        AboveAvg() = delete;
+        // constructor to plug in the default score
+        explicit AboveAvg(float avg) : _avg(avg) {}
+
+        // operator() overloaded as "unary" operation
+        bool operator()(const float score) const {
+            return score > _avg;
+        }
+    private:
+        float _avg;
+    };
+
+.. note::
+
+    The :code:`operator()` must be overloaded as **constant** member funcitons.
+
+.. code-block:: cpp
+
+    // inside main function
+    float avg;
+    std::cout << "Enter average score: ";
+    std::cin >> avg;
+    AboveAvg abv_avg(avg);
+    std::vector<float> scores = {...}; // fill in the scores
+    const int counts = std::count_if(scores.begin(), scores.end(), abv_avg);
+    std::cout << "total # above " << avg << " is " << counts;
 
 Lambdas
 -------
