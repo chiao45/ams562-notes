@@ -555,7 +555,7 @@ The ``const`` qualifier in line 4 indicates that the first input argument of
     The general rules can be also applied here, i.e. use ``const`` whenever
     possible for member functions.
 
-.. code-block::
+.. code-block:: cpp
 
     void print(const MyClass &obj) {
         std::cout << obj.get_value();
@@ -1058,13 +1058,10 @@ For Unary Operators
 Given a unary operator ``@``, i.e. ``@obj`` where ``obj`` is some object. To
 declare operator overloading of it as **free** function:
 
-.. code-block:: cpp
-
     Obj operator @ (obj);
 
 as **member** function:
 
-.. code-block:: cpp
 
     Obj operator @ ();
 
@@ -1099,13 +1096,9 @@ Given a binary operator ``@``, i.e. ``lhs@rhs`` where ``lhs`` and ``rhs`` are
 some objects (with potentially different types). To declare operator
 overloading of it as a **free** function:
 
-.. code-block:: cpp
-
     Obj operator @ (lhs, rhs)
 
 as a **member** function:
-
-.. code-block:: cpp
 
     Obj operator @ (rhs)
 

@@ -110,8 +110,8 @@ Lecture 9: :code:`<algorithm>`
 
    lectures/9/note
 
-Lecture 10: Storing ``matrix`` in Scientific Computing---``LAPACK``
-====================================================================
+Lecture 10: Storing ``matrix`` in Scientific Computing
+======================================================
 
 .. toctree::
    :maxdepth: 2
