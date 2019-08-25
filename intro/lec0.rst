@@ -13,9 +13,8 @@ Lecture Zero
 Comment! Please Comment...
 --------------------------
 
-All programming languages have their way to comment the source
-codes. In `Python`_, people use number sign to start a line
-of comment
+All programming languages have their way to comment the source codes.
+In `Python`_, people use hash tag to start a line of comment
 
 .. code-block:: python
 
@@ -61,15 +60,16 @@ Making comments make others life better.
 ++++++++++++++++++++++++++++++++++++++++
 
 Imagine you join a research group and continue on some former member's work.
-The only thing you get is his/her codes with no comments. Then, let's just
-hope the codes are very robust and have no errors (99.99% chance no!).
-Otherwise, it will waste you lots of time to figure out what he/she has done.
+The only thing you get is his/her codes without a single line of comments.
+Then, let's just hope the codes are robust enough thus having no errors (99.99%
+chance no!). Otherwise, it will waste you lots of time (sometimes can be a
+whole semester) to figure out how to make the code run.
 
 Also notice that, eventually, you will become someone's "former" member, so
 do not make your academic litter brothers/sisters hate you.
 
-"I'm so glad that I commented on this file nicely!"
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+"I'm so glad that I commented!"
++++++++++++++++++++++++++++++++
 
 Actually, you are the one who benefit the most from making comments. While
 doing research, an important thing that everybody needs to keep in mind is to
@@ -79,7 +79,7 @@ future.
 
 Of course, there are better tools, e.g. `Git`_ see :ref:`here <soft_req_git>`,
 to help you manage your work. But making comments are the most fundamental
-requirement that you need to organize yourselves nicely.
+requirement that.
 
 Let's take a look at the following examples:
 
@@ -123,7 +123,7 @@ but for this class, I will briefly share some of my **personal** styles.
 
 .. warning::
 
-    The following information is based on personal experience thus it can be
+    The following information is based on personal experience, thus it is
     subjective.
 
 Rule I: Make the variable names meaningful.
@@ -207,7 +207,7 @@ through the `Docker`_ image for this course.
 ---------------
 
 The first ISO `C++`_ standard was ratified in 1998, so that version is referred
-as C++98. Later on, we got C++03. **The game changer is C++11**, which has
+as C++98. Later on, we got C++03. **The game changer is C++11**, which
 introduced many unique features. Personally, I think C++11 is totally a
 different language compared to its previous versions. For this course, all
 materials are based on C++11, and the term `C++`_ is implicitly referred to
@@ -217,10 +217,10 @@ assumption: *In C++, you can use lambdas instead of functors*.
 .. the following information might be outdated!
 
 The current standard is C++17. However, in scientific computing, the truth is
-that there is usually a lag between current standard in practice and current
-ISO standard. The good news is that most of open-sourced projects have moved/
-are moving to C++11, it's safe to assume C++11 and teach it in a course with
-title *scientific programming*. As a matter of fact, the first
+that there usually exists a gap between current standard in practice and
+current ISO standard. The good news is that most of open-sourced projects have
+moved or are moving to C++11, it's safe to assume C++11 for audiences who are
+interested in *scientific programming*. As a matter of fact, the first
 feature-complete GCC was version 4.8.1 [#]_, which was released on May 31,
 2013 [#]_. Also, our
 `Seawulf <https://it.stonybrook.edu/help/kb/understanding-seawulf>`_

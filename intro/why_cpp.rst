@@ -15,27 +15,27 @@ You Should Consider Using `C++`_ If
 -----------------------------------
 
 The chances are that you may heard a lot of good things of `C++`_, and finally
-you have decided to give it a shot. Great! There is not doubt with the power of
-`C++`_. It is one of the most widely used programming languages, found in a
+decide to give it a shot. Great! There is not doubt with the power of `C++`_.
+It is one of the most widely used programming languages, found in a
 large range of applications. Unsurprisingly, `scientific computing` communities
 use `C++`_ quite often in their projects. For instance, if you are interested
 in solving `partial differential equations` (PDEs), then open-sourced
 frameworks such as `OpenFOAM`_ and `SU2`_ might attract people who work in
 `computational fluid dynamics` (CFD), and `FEniCS`_ and `deal.II`_ for
-researchers who are interested in `finite element methods` (FEM) for solving,
-say, structural problems. Of course, the `computational geometry algorithms
-library` (`CGAL`_) is very popular for computer scientists who develop
-geometry-based algorithms. What about for students who work in much lower level
-research areas, such as developing numerical algorithms. No problem, `Eigen`_
-has been around for awhile that supports efficient representations of
-fundamental numerical computation objects, like vectors, matrices, and tensors.
-OK, I think I can stop here!
+researchers who are interested in `finite element methods` (FEM) that has been
+used in structural problems for decades. Of course, the
+`computational geometry algorithms library` (`CGAL`_) is very popular for
+computer scientists who develop geometry-based algorithms. What about for
+students who work in much lower level research areas, such as developing
+numerical algorithms. No problem, `Eigen`_ has been around for a while that
+supports efficient representations of fundamental numerical computational
+objects, like vectors, matrices, and tensors. OK, I think I can stop here!
 
 Concepts that you learn from `C++`_ can be directly used in other programming
 languages such as Java, `Python`_, `MATLAB`_, C, Fortran, etc. Personally,
 I believe writing an algorithm in `C++`_ helps you fully understand
-the idea and, potentially, can also improve the algorithm design. Let's say,
-you probably has already learned how to do matrix multiplications in your
+the idea and, potentially, can also inspire you for the algorithm design. Let's
+say, you probably has already learned how to do matrix multiplications in your
 college linear algebra classes. Then, when your instructors asked you to
 implement this as homework assignment in `MATLAB`_, what you did is probably
 something like the following
@@ -55,11 +55,12 @@ or in `Python`_
   B = np.random.random((3,3))
   C = A.dot(B)
 
-Well, I am kidding! This is cheating as homework assignments. You probably
-implemented the triple for-loops. If you did a timing analysis, you would probably
-see that the triple for-loop version is more than 100 times slower. Languages like
+Well, I am kidding as this is cheating as homework assignments. You probably
+implemented the triple for-loops. If you did a timing analysis, you would
+probably see that the triple for-loop version is more than 100 times slower.
+Languages like
 `Python`_ or `MATLAB`_ hide details from users, for instance, many students
-don't understand how matrices are stored in `MATLAB`_ and `NumPY` and the
+don't understand how matrices are stored in `MATLAB`_ and `numpy` and the
 difference between accessing from column ``j`` to column ``j+1`` in these two
 languages, i.e. speed is different when accessing :python:`A[i,j:j+2]` and
 :matlab:`A(i,j:j+1)`. On the other side, `C++`_ hides nothing from users.
@@ -73,7 +74,7 @@ Wait, wait... There are many things that can simply be done with in 1 or 2
 lines in `Python`_, but may take you hundreds of lines in `C++`_. Let's
 still use the above matrix multiplication example. First, the concept of
 matrices does not exist in **native** `C++`_, so you need define it. Once
-you have the matrix *class* (future), you, of course, cannot expect that
+you have the matrix *class*, you, of course, cannot expect that
 `C++`_ is smart enough to automatically generate those linear algebra
 operations for you, as a result, you need to implement them. Finally,
 debugging your implementations will take a fairly amount of time.
@@ -86,7 +87,7 @@ directly using `C++`_
 
 Well, with `C++`_, *"by the end of the day"*, you are still struggling with
 software designs. Typically, it's not easy to get something working in `C++`_
-as nicely as *high level* (future) programming languages in short terms.
+as nicely as *high level* programming languages in short terms.
 
 "My project/research is still at infant stage, I wanna test some ideas."
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -96,9 +97,9 @@ example, is a great framework for developing numerical algorithms. As a matter
 of fact, all SBU students can use it "freely" under its educational license.
 
 .. note::
-  This statement works for most students who study in typical applied math fields.
-  However, for students majoring in *high performance computing* (HPC), stories
-  are different.
+  This statement works for most students who study in typical applied math
+  fields. However, for students majoring in *high performance computing* (HPC),
+  stories are different.
 
 "I'm confused..."
 -----------------
@@ -120,11 +121,11 @@ How To Read The Lecture
 -----------------------
 
 By "I", I mean myself. By "We", I mean the
-`Department of Allied Mathematics & Statistics`_ (AMS) and/or
+`Department of Allied Mathematics & Statistics`_ (AMS) and(or)
 `Institute for Advanced Computational Science`_ (IACS). Also, it's worth
-noting that this lecture note is mainly created for preparing the course,
+noting that this lecture note is mainly created as memos for the course,
 and sharing some experiences in programming `C++`_. So I will use the informal
-word "You" to address the students. Finally, the term `C++`_ implicitly
+word "you" to address the students. Finally, the term `C++`_ implicitly
 refer to *C++11* (see :ref:`intro_lec0_std`), for other versions, I will
 address them explicitly.
 

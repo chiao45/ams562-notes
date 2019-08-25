@@ -29,8 +29,8 @@ which does nothing but just returns ``EXIT_SUCCESS`` to your system.
 Compile the one-line program
 ----------------------------
 
-Unlike `Python`_ and `MATLAB`_, where you can directly run programs, all `C++`_
-programs must be first **compiled** into executable binaries.
+Unlike `Python`_ and `MATLAB`_, where you can directly invoke the scripts, all
+`C++`_ programs must be first **compiled** into executable binaries.
 
 .. note::
 
@@ -56,7 +56,7 @@ This by default will compile the program into an executable file called
     ``./`` in front of the executable means the file is under *current working
     directory* (cwd). You can type ``pwd`` in the terminal to check *cwd*.
     In general, ``.`` means current, ``..`` means previous, and ``/`` is the
-    path separator on Linux. To navigate toi a directory through terminal, you
+    path separator on Linux. To navigate to a directory through terminal, you
     need to use the built-in command ``cd``, which stands for *change
     directory*. For instance, if I want to go to previous directory, I can
     simply type ``cd ..``. ``cd ./foo`` will bring me to the ``foo`` folder
