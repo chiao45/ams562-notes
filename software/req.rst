@@ -10,9 +10,9 @@
 
 .. note::
 
-    In this section, we will briefly introduce the software skill suggestions
-    for taking this course. We will provide useful links for you to further
-    train yourself.
+    In this section, we will briefly introduce the software skills needed for
+    this course. We will provide useful links for you to further train
+    yourself.
 
 .. _soft_req_docker:
 
@@ -20,12 +20,12 @@ Using Our `Docker`_ Container
 =============================
 
 Why not take the advantage of cloud computing for teaching? The answer we come
-up with is `Docker`_ contains, which allow you run a collection of software
+up with is `Docker`_ containers, which allow you run a collection of software
 packages (including OS) regardless your host machine systems. This class is
 cluster-free, i.e. you don't need to worry about dealing with our clusters and
 running everything through command lines.
 
-First, read the description of our `Docker`_ container, i.e.
+First, read the description of our `Docker`_ image, i.e.
 `AMS 562 container`_. Once you have installed `Docker`_ and `Python`_,
 download these two scripts that will ease the process for using our container.
 
@@ -154,11 +154,11 @@ something like the following is fine:
 
 .. _soft_req_git_ssh:
 
-Set up an SSH Key
------------------
+Set up an SSH Key (optional)
+----------------------------
 
 Using `Secure Shell <https://en.wikipedia.org/wiki/Secure_Shell>`_ is the
-preferred way for using `Git`_. Follow
+preferred way (but not required for this class) for using `Git`_. Follow
 `this description <https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html>`_
 to setup an SSH key for your `Bitbucket`_ account.
 
@@ -176,7 +176,7 @@ Code with `Visual Studio Code <https://code.visualstudio.com/>`_
 Using a decent editor is necessary, and develop with IDE-like environment is
 extremely helpful. Among all existing popular editors, we have decided to
 provide the `Visual Studio Code`_ that is developed by Microsoft. This editor
-has been installed and properly configured in our container.
+has been installed and properly configured in our `Docker`_ image.
 
 .. _soft_req_vscode_git:
 
@@ -189,7 +189,7 @@ make things more consistent with our `Docker`_ setting, we find that using
 `this description <https://code.visualstudio.com/docs/editor/versioncontrol#_git-support>`_.
 
 Notice that if you use `Git`_ through :ref:`SSH <soft_req_git_ssh>`, then you
-need to run the following command inside the terminal of our
+need to run the following command inside the terminal of the
 `container <https://github.com/compdatasci/ams562-desktop>`_:
 
 .. code-block:: console
@@ -210,10 +210,10 @@ this integrated terminal.
 
 .. tip::
 
-    You can jump to a specific location of a file if the file is shown with
-    absolute path. Therefore, it's convenient to pass in abs path of a file
-    inside the integrated terminal. One easy way to do so is to add ```pwd`/``
-    in front of your file.
+    You can directly open a file by clicking on its absolute path inside the
+    integrated terminal. Therefore, it's convenient to embed abs path of a
+    file inside the integrated terminal. One easy way to do so is to add
+    ```pwd`/`` in front of your file.
 
 .. code-block:: console
 
