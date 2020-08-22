@@ -30,13 +30,13 @@ from nblinks import _extlinks
 extlinks = _extlinks
 
 project = 'AMS 562 Lecture Notes'
-copyright = '2018-2019, Qiao Chen'
+copyright = '2018-2020, Qiao Chen'
 author = 'Qiao Chen'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '2019.F'
+release = '2020.F'
 
 
 # -- General configuration ---------------------------------------------------
