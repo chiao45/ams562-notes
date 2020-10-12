@@ -761,7 +761,7 @@ As you can see, in C, there is a uniquely defined ``abs`` function for each of
 the built-in type. With the power of function overloading, a unified interface
 ``abs`` is defined for all built-in types.
 
-Take a look at the :nblec_4:`overload`.
+Take a look at the :nblec_4:`overloading`.
 
 The Traps
 +++++++++
