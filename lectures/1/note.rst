@@ -19,7 +19,7 @@
 
 Unlike `Python`_ (or any other dynamic languages), all `C++`_ variables must be
 initialized with their types explicitly given. And the variable names cannot be
-reused within the same :ref:`cope<lec1_scope>`. Consider the following
+reused within the same :ref:`scope<lec1_scope>`. Consider the following
 `Python`_ code
 
 .. _lec1_dy_eg:
