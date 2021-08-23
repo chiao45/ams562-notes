@@ -108,7 +108,7 @@ the standard input and output library, i.e. ``iostream``.
 
 
 Once we include the IO library (line 1), we can use the standard output
-streamer, i.e. ``std::out``, to write out messages (line 4).
+streamer, i.e. ``std::cout``, to write out messages (line 4).
 
 Now, copy the program into ``hello_world.cpp``, and compile and run it.
 
