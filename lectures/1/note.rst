@@ -10,6 +10,8 @@
 
 .. _lec1_types:
 
+.. I want to write a comment here hopefully this doesn't show up
+
 `C++`_ is all about TYPES!
 ==========================
 
