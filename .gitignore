@@ -8,3 +8,4 @@ build
 .pylintrc
 .ipynb_checkpoints
 a.out
+ams562_desktop.py
