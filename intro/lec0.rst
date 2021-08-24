@@ -71,7 +71,7 @@ do not make your academic litter brothers/sisters hate you.
 "I'm so glad that I commented!"
 +++++++++++++++++++++++++++++++
 
-Actually, you are the one who benefit the most from making comments. While
+You are the one who benefits the most from making comments. While
 doing research, an important thing that everybody needs to keep in mind is to
 make the work reproducible. One needs to make sure that his/her results can be
 reproduced in the future. Therefore, make comments for yourselves in the
@@ -81,6 +81,8 @@ Of course, there are better tools, e.g. `Git`_ see :ref:`here <soft_req_git>`,
 to help you manage your work. But making comments are the most fundamental
 requirement that.
 
+Good versus Bad Comments
++++++++++++++++++++++++++++++++
 Let's take a look at the following examples:
 
 .. code-block:: cpp

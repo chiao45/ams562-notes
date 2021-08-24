@@ -10,7 +10,7 @@
 
 .. _lec4_func_basis:
 
-The Basis
+The Basics
 =========
 
 .. contents::
