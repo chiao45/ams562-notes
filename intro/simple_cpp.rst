@@ -138,12 +138,11 @@ Here is the classic "Hello World!" program.
 
 Let's parse some of this program
 
-* ``#include <iostream>`` The include directive.  This is where we  included the definition of ``std::cout``
+* ``#include <iostream>`` is an ``#include`` directive.  This is where we  included the definition of ``std::cout``  
 * ``std::cout`` character output stream
+* ``<<`` is the output operator
 * ``"Hello World!\n`` String literal that is displayed on screen
 * ``// This is a comment``
-
-
 
 
 Now, copy the program into ``hello_world.cpp``, and compile and run it.
