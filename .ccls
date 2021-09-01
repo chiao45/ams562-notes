@@ -1,0 +1,7 @@
+clang
+%c -std=c17
+%cpp -std=c++2a
+%h %hpp --include=Global.h
+-Iinc
+-DMACRO
+
