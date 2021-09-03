@@ -4,7 +4,13 @@
 .. _intro_simple_cpp:
 
 Simple `C++`_
-=============
+=======================
+
+Here, we will present the most basic C++ program that does something.
+The purpose of this section is to
+
+* Give you a chance to use the programming environment
+* Give a first feel of how you control the computer using C++. 
 
 .. contents:: Table of Contents
    :local:
@@ -12,25 +18,43 @@ Simple `C++`_
 
 .. _intro_simple_cpp_main:
 
-The ``main`` functions
-----------------------
+The simplest `C++`_ program
+-------------------------------
 
-Each `C++`_ program is written in a ``main`` function in `C++`_, where a
-``main`` function must return an integer to indicate your system the exit
-status of the program.
+Here is the simplest `C++`_ program you can write.
+
+.. code-block:: cpp
+
+    int main() {return 0;}
+
+Every `C++`_ program must have a function ``main``.  
+A function is a named sequence of instructions that the computer executes.
+Each function has four parts:
+
+1. A *return* type `int`, specificies the kind of result
+2. A *name*, ``main``
+3. A *parameter list* ``()``
+4. A *function body* enclosed in the set of curly braces ``{}``, lists the sequence of statements
+
+The ``main`` function must return an integer to indicate your system the exit
+status of the program.  
+
+
+
 
 .. note:: 0 is used for indicating exiting successfully.
 
-Here is the simplest `C++`_ program, :code:`int main() { return 0; }`,
-which does nothing but just returns ``EXIT_SUCCESS`` to your system.
-
 .. _intro_simple_cpp_compile:
 
-Compile the one-line program
-----------------------------
+Compile and link the one-line program
+---------------------------------------------
 
 Unlike `Python`_ and `MATLAB`_, where you can directly invoke the scripts, all
 `C++`_ programs must be first **compiled** into executable binaries.
+By compiling a program, we mean translating the human-readable text instructions
+into something that the computer can execute.  
+In this class, we use the g++ compiler to 
+translate our source code into executable file.  
 
 .. note::
 
@@ -71,7 +95,7 @@ You should see ``0`` on the screen.
 
 "Hello World!"
 --------------
-
+Here we will introduce the classic "Hello World!" program written in C++.
 Unfortunately, you cannot write one line code for "Hello World!" in `C++`_. In
 `Python`_, you can write a ``hello_world.py`` script with:
 
@@ -96,23 +120,47 @@ You should see "Hello World!" on your screen. Or even something like:
 However, there is no built-in ``print`` method in `C++`_, we have to include
 the standard input and output library, i.e. ``iostream``.
 
+Here is the classic "Hello World!" program.
+
 .. code-block:: cpp
     :linenos:
 
-    #include <iostream>
+    // This program outpouts the message "Hello, World!" to the monitor
+    #include <iostream> // #include directive
 
-    int main() {
-        std::cout << "Hello World!" << std::endl;
+    int main() {// C++ programs start by executing the main function
+        std::cout << "Hello World!\n";// output "Hello, World!"
         return 0;
+        // notice that semicolons terminate statements. 
     }
+    // quotes delimit a string literal
+    // \n is notation for new line
 
+Let's parse some of this program
 
-Once we include the IO library (line 1), we can use the standard output
-streamer, i.e. ``std::out``, to write out messages (line 4).
+* ``#include <iostream>`` is an ``#include`` directive.  This is where we  included the definition of ``std::cout``  
+* ``std::cout`` character output stream
+* ``<<`` is the output operator
+* ``"Hello World!\n`` String literal that is displayed on screen
+* ``// This is a comment``
+
 
 Now, copy the program into ``hello_world.cpp``, and compile and run it.
 
 .. note::
 
-    This section is basically to demonstrate some simple codes. There will be
-    a specific section talking about IO.
+    It's important you mind the details when writing programs in CPP.
+    Try making a mistake and see how the compliler responds 
+
+    * Forget the header
+    * Forget to terminate the string
+    * Misspell returned
+    * Forget a semicolon
+    * Forget a {
+
+The hello world program is crucial because it represents the most basic program that you can write.
+Its purpose is to get you familiar with writing programs in C++.
+The rest of your programs should include the same basic structure.
+In future lectures we will go over more information about I/O in C++
+
+
