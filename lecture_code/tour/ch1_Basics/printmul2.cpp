@@ -6,7 +6,6 @@ void printxmul2(double x) {
 }
 
 int main() {
-
   printxmul2(2.234);
 
   return 0;
