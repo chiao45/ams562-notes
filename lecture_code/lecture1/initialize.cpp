@@ -43,12 +43,12 @@ int main() {
   print_var(wha);
   print_var(whaaaa);
 
-  auto b = true;     // a bool
-  auto ch = 'x';     // a char
-  auto i = 124;      // a int
-  auto d = 1.2;      // a double
-  auto z = sqrt(y);  // the type retured
-  auto bb{true};     // a bool
+  auto b = true;  // a bool
+  auto ch = 'x';  // a char
+  auto i = 124;   // a int
+  auto d = 1.2;   // a double
+  // auto z = sqrt(y);  // the type retured
+  auto bb{true};  // a bool
 
   return 0;
 }

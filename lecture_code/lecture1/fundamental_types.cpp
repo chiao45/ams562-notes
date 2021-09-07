@@ -20,7 +20,7 @@ int main(void) {
   std::cout << "size of long = " << sizeof(l) << " byte" << std::endl;
   std::cout << "size of pointer = " << sizeof(ptr) << " byte" << std::endl;
   std::cout << "size of ui = " << sizeof(ui) << " byte" << std::endl;
+  // print out the size in bits
 
-  std::cout << "max int = " << fi << std::endl;
-  std::cout << "max unsigned = " << fu << std::endl;
+  // 8 bits in 1 byte
 }

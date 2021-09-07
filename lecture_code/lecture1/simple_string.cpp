@@ -12,5 +12,10 @@ int main() {
             << std::endl;  // reads to null termination charcter
   std::cout << "My dog's name " << dfname << " " << dlname << std::endl;
 
-  return 0;
+  std::string full_name = dfname + " " + dlname;
+  std::cout << "My dog's name " << full_name << std::endl;
+
+  std::string hello = "\" Hello \""
+
+      return 0;
 }
