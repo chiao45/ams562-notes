@@ -133,13 +133,13 @@ and helpful, please take a look at it.
     You may also find using `Git`_ in `Visual Studio Code`_ is handy, see
     :ref:`here <soft_req_vscode_git>`.
 
-Set up your private repository on `Bitbucket`_
+Set up your private repository on `Github`_
 ----------------------------------------------
 
-We will use one of the popular online git network, `Bitbucket`_, to collect
+We will use one of the popular online git network, `Github`_, to collect
 your homework assignments. Register an account with your **SBU** email
 address, then create a **private** repository following this
-`description <https://confluence.atlassian.com/bitbucket/create-a-git-repository-759857290.html>`_.
+`description <https://docs.github.com/en/get-started/quickstart/create-a-repo>`_.
 
 Name your repository with ``ams562_<your name>``. And initialize your
 repository with a ``README.md`` that at least includes your SBU ID and name,
@@ -159,8 +159,8 @@ Set up an SSH Key (optional)
 
 Using `Secure Shell <https://en.wikipedia.org/wiki/Secure_Shell>`_ is the
 preferred way (but not required for this class) for using `Git`_. Follow
-`this description <https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html>`_
-to setup an SSH key for your `Bitbucket`_ account.
+`this description <https://docs.github.com/en/enterprise-server@3.0/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_
+to setup an SSH key for your `Github`_ account.
 
 .. note:: Keep your private key and **passphrase** secure!
 

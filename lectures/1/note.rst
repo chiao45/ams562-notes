@@ -10,6 +10,8 @@
 
 .. _lec1_types:
 
+.. I want to write a comment here hopefully this doesn't show up
+
 `C++`_ is all about TYPES!
 ==========================
 
@@ -19,7 +21,7 @@
 
 Unlike `Python`_ (or any other dynamic languages), all `C++`_ variables must be
 initialized with their types explicitly given. And the variable names cannot be
-reused within the same :ref:`cope<lec1_scope>`. Consider the following
+reused within the same :ref:`scope<lec1_scope>`. Consider the following
 `Python`_ code
 
 .. _lec1_dy_eg:
@@ -457,12 +459,17 @@ whole numbers.
     int a = 12.03;    // a is 12
     int b = -1.234e2; // b is -123
 
-The :code:`const` Specifier
+Constants
 ---------------------------
 
+There are two ways of setting constants in `C++`_
+
+Const
++++++++++++++++++++++
+
 :code:`const` is a keyword in `C++`_ that indicates an variable is immutable.
-Once a variable is defined as constant, you cannot modify its value,
-**so initialization is must for defining constant variables!**
+Once a variable is defined as constant, you cannot modify its value.
+**You must initialize const variables!**
 
 .. code-block:: cpp
 
@@ -472,20 +479,64 @@ Once a variable is defined as constant, you cannot modify its value,
 
 .. tip:: Use :code:`const` whenever possible!
 
-.. _lec1_array:
+* Functions and expressions cannot modify :code:`const` value of objects 
+* Commonly we pass functions by const reference
+* The compiler ensures variables remain const. 
+* Value of :code:`const` variables can be computed at run time.
 
-Array
------
+Constexpr
++++++++++++++++++++++++++++
 
-Array is one of the most basic data structures in programming. As a matter of
-facet, it is also the most commonly used data structure in scientific
-computing. An array is a sequence of objects that have the same size and type.
-In `C++`_, an array can be constructed with square bracket :code:`[N]`, where
-:cpp:expr:`N` is the size of array.
+:code:`constexpr` which means evaluated at compile time.  
+
+* Used to specify constants.
+* Allow placement of data in read-only memomory 
+* Improve performance (run-time calculcation)
+* Values of :code:`constexpr` must be calculated at runtime. 
+
 
 .. code-block:: cpp
 
-    double arr[3];   // create an array of 3 doubles
+    constexpr int dmv = 17;// dmv is a named constant
+    int var =17; // var is not a constant
+    const double sqv=sqrt(var);  //sqv is a named constant; possibly computed at run time
+
+    double sum(const vector<double> &);// sum will not modify argument
+
+    vector<double> v{1.2,3.4,4.5}
+    const double s1=sum(v);// OK: evaluated at runtime
+    constexpr double s1=sum(v);// error: sum(v) is not const
+
+If we would like to evaluate functions at compiler time we need
+to define them as constexpr.
+
+.. note:: 
+    Which of the following lines of code will compile and why?
+
+.. code-block:: cpp
+
+    constexpr double square(double x){return x*x;}
+    constexpr double m1=1.4*square(17);
+    constexpr double m2=1.4*square(var);
+
+
+.. _lec1_array:
+
+Array and Pointers
+--------------------------
+
+
+Array is one of the most basic data structures in programming. As a matter of
+fact, it is also the most commonly used data structure in scientific
+computing. 
+
+* An array is a contiguously allocated sequence of objects that have the **same size and type**.
+* Reflects how memory is allocated in the hardware.
+* In `C++`_, an array can be declared with square bracket :code:`[N]`, where :cpp:expr:`N` is the size of array.
+
+.. code-block:: cpp
+
+    double arr[3];   // de an array of 3 doubles
     int pos[5];      // an array of 5 integers
 
 To initialize an array, the curly brackets :code:`{}` are needed, e.g.
@@ -505,24 +556,100 @@ shown in line 2. Also, partially initialize an array is allowed, but the
 right-hand side must be no larger than the actual array size. Checkout and
 run :nblec_1:`array`.
 
+
+A **pointer** is an address to an object. A pointer can be declared as like this:
+
+.. code-block:: cpp
+    
+    char* p;  // pointer to character 
+
+A pointer variable holds the address of an object of the appropriate type.
+
+.. code-block:: cpp
+
+    char* p = &v[3];  // pointer to character 
+    char x = *p;  // pointer to character 
+
 Accessing Array Elements
 ++++++++++++++++++++++++
+
+Arrays have **0** as their lower bound.
+
+.. code-block:: cpp
+
+    char v[6]={'h','e','l','l','o',0}
+    char v[6]="hello";// null termination char at end
+
+
+.. image:: images/array.png
 
 To access an specific element of an array, we need to use operator
 :code:`[index]`.
 
-.. warning::
+.. code-block:: cpp
 
-    Un like Fortran and `MATLAB`_, `C++`_ is zero-based indexing, i.e. the
-    first element index starts from 0 instead of 1.
+    v[0] ='w'      // first element 1
+    v[1] ='o'     // second element 2
+    v[2] ='r'      
+    v[3] ='l'      
+    v[4] ='d'      
+    v[5] ='!'    // Overwrite null out of bound
+    v[6] = 0    // Error out of bound
+
+We can also use pointers to access the elements of arrays.
+
+* The prefix  :code:`*` means "contents of"  
+* The prefix  :code:`&` means "adress of"
 
 .. code-block:: cpp
 
-    double stdv[3];     // array of 3 doubles
-    stdv[0] = 1.0;      // first element 1
-    stdv[1] = 2.0;      // second element 2
-    stdv[2] = 3.0;      // last element 3
-    // stdv[3];         // out of bound!
+    char*p =&v[3];// p points to v's fourth element
+    char x =*p;// *p is the object that points to 
+
+.. image:: images/array_pointer.png
+
+Consider copying ten elements from one array to another:
+
+.. code-block:: cpp
+    
+    void copy_fct()
+    {
+        int v1[10]={0,1,2,3,4,5,6,7,8,9};
+        int v2[10];
+
+        for(auto i=0; i!=10;++i)
+            v2[i]=v1[i];
+    }
+
+**For** can be read as follows:
+
+* set i equal to zero 
+* while i is not 10
+* copy the ith element and increment i
+
+We can also use range-for-statement to access the elements of an array
+
+.. code-block:: cpp
+    
+    void print()
+    {
+        int v1[]={0,1,2,3,4,5,6,7,8,9};
+        for(auto x:v)
+            std::cout<<x<<'\n';
+        for (auto x:{'a','b','c'})
+            std::cout<<x<<'\n';
+
+    }
+
+**For** can be read as follows:
+
+* for every element of **v**
+* from the first to the last
+* place a copy in **x** and print it
+
+
+
+    
 
 Multidimensional Array
 ++++++++++++++++++++++

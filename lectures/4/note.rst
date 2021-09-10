@@ -10,7 +10,7 @@
 
 .. _lec4_func_basis:
 
-The Basis
+The Basics
 =========
 
 .. contents::
@@ -263,7 +263,7 @@ Let's first look at the following function that returns a pointer:
     }
 
 On return, ``getPointer`` will return a **copy** of ``ptr`` and this behavior
-is will defined. Now, let's look at the the *function body* (content inside
+is well defined. Now, let's look at the the *function body* (content inside
 the function scope). A **local** integer ``a`` is created as well as a pointer
 ``ptr`` that points to it. The memory address of ``a`` is copied whiling
 returning ``ptr``, but ``a`` is popped out from the stack right after the
@@ -607,10 +607,15 @@ following syntax: :code:`return_type(type1, type2, ...)`, for example, the
 .. note::
 
     Function declaration (prototyping) is actually like any other declarations
-    thus having type and variable name. The different is that the variable name
-    is in the middle of the type, i.e. :code:`void Empty()`. In this case, it
+    thus having type and variable name. The difference is that the variable name
+    is in the middle of the type,  i.e. :code:`void Empty()`. In this case, it
     is very similar to defining arrays, i.e. :code:`int array2[2]`, where
     ``array2`` is the variable that has type of :code:`int[2]`.
+
+.. code-block:: cpp
+    void Empty();// type then name
+    int array2[2];// type name
+
 
 With a type precisely defined, we expect, of course, its pointer and reference
 defined as well. The syntax is as following:

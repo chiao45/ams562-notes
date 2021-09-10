@@ -17,9 +17,18 @@ Understanding References in `C++`_
    :local:
    :backlinks: top
 
-A reference is an **alternative name** of another object in `C++`_. The syntax
-is adding symbol ``&`` after the type identifier (declarator), i.e.
-:code:`[type] &var`.
+A reference is an **alternative name** of another object in `C++`_.  Once a reference is initialized
+with a variable, either the variable name or the reference may be used to refere to the variable.
+
+* The syntax is adding symbol ``&`` after the type identifier (declarator)
+* :code:`[type] &var`
+
+.. code-block:: cpp
+     
+    int a;
+    int &b = a;  // a reference to a
+
+
 
 Initializing Variables vs. Initializing References
 --------------------------------------------------
@@ -38,31 +47,65 @@ you can write:
 
 .. code-block:: cpp
 
-    int a;  // define a
-    a = 2;  // recopy value 2
+    int a=1;  // define a
+    a = 5;  // recopy value 5
+    int a_copy=a;// copy of value in a
+
+
+.. image:: images/copy_a.png
 
 However, for references, we bind, instead of copy, them to their initializers.
 Each reference is bound to its initial object, and rebinding it is not allowed.
+
+.. code-block:: cpp
+
+    int &b =a
+
+.. image:: images/ref_a.png
+
+Here **b** is a reference to the value at the address of **a**.  We have direct
+access to the value of **a** through reference **b**.  Therefore we can modify
+a using reference **b**.  
+
 
 .. warning:: All references must be defined with initializers!
 
 .. note:: A reference is just an alias of an object!
 
+example ref.cpp
+++++++++++++++++++++++++
+
+You can find the complete code below in the :code:`ref.cpp` examplea.  What will the code print?
+
 .. code-block:: cpp
 
-    int obj = 1;        // integer of value 1
-    int &ref = obj;     // bind reference ref to obj
+  int a = 2;
+  int a_copy = a;
+  int &b = a; 
 
-For the code above, if we modify the value of :code:`obj`, say :code:`obj=2;`,
-what will be the value of :code:`ref`?
+  print(a);
+  print(a_copy);
+  print(b);
 
-Checkout :nblec_2:`ref` and run it.
+  a_copy = 23;
+  print(a);
+  print(b);
+
+  a = 3;
+  print(a_copy);
+  print(b);
+
+  b = 100;
+  print(a);
+  print(a_copy);
 
 .. note::
 
     Modifying a reference will affect the object that it bind to. Essentially,
     the behavior of an object and its references is synchronized.
 
+References with :code:`const`-Qualifier
+---------------------------------------
 Due to the fact that a reference can be used to modify the values of its
 original object, **binding a (normal) reference to a constant object is not
 allowed!**
@@ -75,13 +118,13 @@ allowed!**
     char &A = 'A'; // error!
 
 
-References with :code:`const`-Qualifier
----------------------------------------
 
-You can bind a constant object with **constant reference**. Because a reference
-itself already has the property of :code:`const`-ness, i.e. you cannot rebind
-a reference, **constant reference** can also be used to bind temporary
-variables (future).
+* You can bind a constant object with **constant reference**. 
+* :code:`const`  reference preserves the const-ness of the object
+
+
+* You cannot reference a temporary object (aka literal)
+* You can use constant reference to bind a temporary object..make it const
 
 .. code-block:: cpp
 
@@ -91,7 +134,7 @@ variables (future).
 
 .. note:: You can bind constant references to normal objects.
 
-Checkout and run :nblec_2:`const_ref`.
+Checkout and run :code:`ref_const.cpp`.
 
 .. _lec2_ptr:
 
@@ -106,7 +149,7 @@ Understanding Pointers in `C++`_
 and `C++`_. Before we jump into pointers, we need to first understand the
 memory addresses in `C++`_.
 
-An **object** has its unique memory address. A pointer is a special type of
+An **object** has its **unique memory address**. A pointer is a special type of
 **objects** that can hold memory addresses as its values.
 
 To define a pointer, we need to add symbol :code:`*` after the type identifier,
@@ -119,6 +162,7 @@ i.e. :code:`[type] *ptr`.
 The ``address-of`` Operator
 ---------------------------
 
+To initialize pointers we need the address of objects.
 To extract the memory address of an object, we need to use the ``address-of``
 operator, i.e. :code:`&`.
 
@@ -131,8 +175,10 @@ operator, i.e. :code:`&`.
 .. code-block:: cpp
     :linenos:
 
-    int a = 1;          // define an integer
-    int *a_ptr = &a;    // define a pointer that points to a's address
+    int a = 5;          // define an integer
+    int *p = &a;    // define a pointer that points to a's address
+
+.. image:: images/pointer_a.png
 
 In line 2, the ``address-of`` operator is used in order to extract the memory
 address of ``a``, and the value (of the memory address) is assigned to the
@@ -152,16 +198,23 @@ Accessing objects is a typical usage of pointers. To do so, we need the
     Similarly, do not confuse with ``dereference`` operator and the symbol
     :code:`*` for defining pointers.
 
+Example pointer.cpp
+++++++++++++++++++++++++++++
+
+What is the value at the end of the program?
+
 .. code-block:: cpp
 
-    int a = 1;
-    int *a_ptr = &a;  // copy a's address
-    std::cout << a_ptr << '\n'; // print a's address
-    std::cout << a << "==" << *a_ptr << '\n';
-    *a_ptr = 2;
-    // what is a?
+  int a = 4;
+  int *a_ptr = &a;
 
-Checkout and run :nblec_2:`ptr`.
+  std::cout << a_ptr << std::endl;
+  std::cout << a << "==" << *a_ptr << '\n' << std::endl;
+
+  *a_ptr = 2;
+
+  std::cout << "a = " << a << std::endl
+    // what is a?
 
 Initialize Pointers
 -------------------
@@ -356,7 +409,7 @@ memory address of that chuck of memory space.
 
 .. note::
 
-    We typically refer variables that created in the stack as the *meta data*
+    We typically refer variables that are created in the stack as the *meta data*
     that describes the actual data, which is typically large and stored in the
     heap.
 
@@ -385,14 +438,18 @@ Dynamic Memory Allocation
 
 Since we already learned that we need to use :ref:`pointers <lec2_ptr>` to
 point to the memory locations in the head, you should not be surprised that
-dynamic memory allocations involve using pointers. The syntax is
-:code:`[type] *ptr = new [type]`, where the operator ``new`` is to allocate
-memory dynamically.
+dynamic memory allocations involve using pointers. 
+
+* The syntax is :code:`[type] *ptr = new [type]`, 
+* operator ``new`` allocates memory on free store (heap).
+
+Example heap_allocation.cpp
+++++++++++++++++++++++++++++++++++++
 
 .. code-block:: cpp
 
     int *bad_ptr = 3; // ERROR!
-    int *ptr = new ptr;  // request a valid place first
+    int *ptr = new int;  // request a valid place first
     *ptr = 3;   // dereferencing a valid pointer is fine
     // or
     int *ptr_init = new int (3);
@@ -448,6 +505,21 @@ the syntax is :code:`delete [ptr];`.
     p = new double;     // reallocate here, previous allocation leaked!
     delete p;   // the first double is leaked.
     // delete p; // delete twice won't work and dangerous!
+Example deallocation.cpp
+++++++++++++++++++++++++++++++++
+
+.. code-block:: cpp
+
+    int *ptr_main = nullptr;
+
+    {
+    int *ptr = new int; // points to int allocated on the heap
+    ptr_main = ptr;
+    } // *ptr out of scope and destroyed
+    // create new pointer and intialize to value 3
+    std::cout << *ptr_main << std::endl;
+    delete ptr_main;
+    }
 
 Dynamic Array Allocation/Deallocation
 -------------------------------------
